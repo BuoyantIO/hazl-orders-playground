@@ -1,10 +1,10 @@
-# HAZL | Topology Aware Routing Playground
+# HAZL | Orders Playground
 
-## hazl-tar-orders-playground
+## hazl-orders-playground
 
 ### Tom Dean | Buoyant
 
-### Last edit: 5/24/2024
+### Last edit: 5/28/2024
 
 ## Introduction
 
