@@ -8,7 +8,7 @@
 
 ## Introduction
 
-This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in two clusters, and enable **High Availability Zonal Load Balancing (HAZL)** in one cluster. The second cluster is configured to use **Topology Aware Routing** for load balancing.  This allows you to compare **HAZL** to **Topology Aware Routing**.
+This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.
 
 ## High Availability Zonal Load Balancing (HAZL)
 
@@ -40,7 +40,7 @@ For more information, click [here](more-hazl.md).
 - The `watch` command must be installed and working, if you want to use it
 - The `kubectx` command must be installed and working, if you want to use it
 - [Buoyant Enterprise for Linkerd License](https://enterprise.buoyant.io)
-- [The Demo Assets, from GitHub](https://github.com/BuoyantIO/hazl-tar-orders-playground)
+- [The Demo Assets, from GitHub](https://github.com/BuoyantIO/hazl-orders-playground)
 
 All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from the link above. Instructions on obtaining the demo assets from GitHub are below.
 
@@ -59,24 +59,31 @@ The top-level contents of the repository looks something like this:
 ├── cluster-the-hard-way.md              <-- Instructions on how to manually stand up the clusters - _(needs some updates)_
 ├── more-hazl.md                         <-- More information on HAZL
 ├── images                               <-- Images for the README
-├── orders -> orders-oha-bb/orders-nohpa
+├── orders -> orders-oha-bb/orders-hpa
+├── orders-colorwheel
 ├── orders-colorwheel                    <-- The Orders application, uses Colorwheel
 │   ├── orders-hpa-colorwheel            <-- The Orders application, with Horizontal Pod Autoscaling
 │   ├── orders-nohpa-colorwheel          <-- The Orders application, without Horizontal Pod Autoscaling
-│   ├── orders-topo-hpa-colorwheel       <-- The Orders application, with Horizontal Pod Autoscaling, for TAR
-│   └── orders-topo-nohpa-colorwheel     <-- The Orders application, without Horizontal Pod Autoscaling, for TAR
+│   ├── warehouse-config-120ms.yaml
+│   ├── warehouse-config-80ms.yaml
+│   └── warehouse-config.yaml
+├── orders-oha-bb
 ├── orders-oha-bb                        <-- The Orders application, uses oha/bb
 │   ├── orders-hpa                       <-- The Orders application, with Horizontal Pod Autoscaling
-│   ├── orders-nohpa                     <-- The Orders application, without Horizontal Pod Autoscaling
-│   ├── orders-topo-hpa                  <-- The Orders application, with Horizontal Pod Autoscaling, for TAR
-│   └── orders-topo-nohpa                <-- The Orders application, without Horizontal Pod Autoscaling, for TAR
-├── orders-topo -> orders-oha-bb/orders-topo-nohpa
-├── orders -> orders-hpa
+│   └── orders-nohpa                     <-- The Orders application, with Horizontal Pod Autoscaling
 ├── slow_cooker.yaml                     <-- Manifest for slow_cooker, to generate some additional traffic, if desired
-├── sp-orders.yaml                       <-- Manifest for the Orders ServiceProfile, to enable/disable retries
-├── traffic_check.sh                     <-- Script to monitor application traffic
-├── warehouse-chicago-hazl-bb-fail.yaml  <-- Manifest for inducing 800ms of delay and 100% failures in the Chicago warehouse (HAZL)
-└── warehouse-chicago-topo-bb-fail.yaml  <-- Manifest for inducing 800ms of delay and 100% failures in the Chicago warehouse (TOPO)
+└── testing-oha-bb
+    ├── failure-chicago                  <-- Manifests to induce failure in the Chicago warehouse
+    │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
+    │   ├── warehouse-chicago-hazl-bb-25-fail.yaml
+    │   ├── warehouse-chicago-hazl-bb-50-fail.yaml
+    │   └── warehouse-chicago-hazl-bb-75-fail.yaml
+    ├── latency-oakland                  <-- Manifests to induce latency in the Oakland warehouse
+    │   ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
+    │   ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
+    │   └── warehouse-oakland-hazl-bb-800ms-latency.yaml
+    ├── sp-orders.yaml                   <-- Manifest for the Orders ServiceProfile, to enable/disable retries
+    └── traffic_check.sh                 <-- Script to monitor application traffic
 ```
 
 ## Playground: Automation
@@ -88,7 +95,7 @@ The repository contains the following automation:
 - `cluster_destroy.sh`
   - Script to destroy the cluster environment
 - `traffic_check.sh`
-  - Script to monitor application traffic
+  - Script to monitor application traffic in the `testing-oha-bb` directory.
 
 If you choose to use the `cluster_setup.sh` script, make sure you've created the `settings.sh` file and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
 
@@ -130,7 +137,7 @@ Now that you have a trial login, open an additional browser window or tab, and o
 
 ## Playground: Cluster Configurations
 
-This repository contains six `k3d` cluster configuration files:
+This repository contains three `k3d` cluster configuration files and a soft link:
 
 ```bash
 .
@@ -138,14 +145,10 @@ This repository contains six `k3d` cluster configuration files:
 │   ├── demo-cluster-orders-hazl-large.yaml
 │   ├── demo-cluster-orders-hazl-medium.yaml
 │   ├── demo-cluster-orders-hazl-small.yaml
-│   ├── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
-│   ├── demo-cluster-orders-topo-large.yaml
-│   ├── demo-cluster-orders-topo-medium.yaml
-│   ├── demo-cluster-orders-topo-small.yaml
-│   └── demo-cluster-orders-topo.yaml -> demo-cluster-orders-topo-small.yaml
+│   └── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
 ```
 
-By default, `demo-cluster-orders-hazl-small.yaml` is linked to `demo-cluster-orders-hazl.yaml`, so you can just use `demo-cluster-orders-hazl.yaml` if you want a small cluster. The same applies for the `topo` clusters.
+By default, `demo-cluster-orders-hazl-small.yaml` is linked to `demo-cluster-orders-hazl.yaml`, so you can just use `demo-cluster-orders-hazl.yaml` if you want a small cluster.
 
 ## Buoyant Cloud: Grafana Dashboard
 
@@ -199,25 +202,20 @@ That's it!  You have your dashboards.
 
 ## The Orders Application
 
-This repository includes the **Orders** application, which generates traffic across multiple availability zones in our Kubernetes cluster, allowing us to observe the effect that **High Availability Zonal Load Balancing (HAZL)** has on traffic.  There are two versions of the application, one based on the Colorwheel application and one based on `oha`/`bb`.
+This repository includes the **Orders** application, which generates traffic across multiple availability zones in our Kubernetes cluster, allowing us to observe the effect that **High Availability Zonal Load Balancing (HAZL)** has on traffic.  The repository includes two versions of the application, one based on the [Colorwheel](https://github.com/BuoyantIO/colorwheel) application and [orders-app-oha-bb](https://github.com/BuoyantIO/orders-app-oha-bb), based on `oha`/`bb`.
 
 ```bash
 .
-├── orders -> orders-oha-bb/orders-nohpa
+├── orders -> orders-oha-bb/orders-hpa
 ├── orders-colorwheel
 │   ├── orders-hpa-colorwheel
-│   ├── orders-nohpa-colorwheel
-│   ├── orders-topo-hpa-colorwheel
-│   └── orders-topo-nohpa-colorwheel
-├── orders-oha-bb
-│   ├── orders-hpa
-│   ├── orders-nohpa
-│   ├── orders-topo-hpa
-│   └── orders-topo-nohpa
-└── orders-topo -> orders-oha-bb/orders-topo-nohpa
+│   └── orders-nohpa-colorwheel
+└── orders-oha-bb
+    ├── orders-hpa
+    └── orders-nohpa
 ```
 
-Each directory will contain:
+Each directory contains:
 
 ```bash
 .
@@ -232,19 +230,16 @@ Each directory will contain:
 └── warehouse-oakland.yaml
 ```
 
-For each version, there are four copies of the Orders application:
+For each version, there are two copies of the Orders application:
 
 - `orders-hpa`: HAZL version of the orders app with Horizontal Pod Autoscaling
 - `orders-nohpa`: HAZL version of the orders app without Horizontal Pod Autoscaling
-- `orders-topo-hpa`: Topology Aware Hints version of the orders app with Horizontal Pod Autoscaling
-- `orders-topo-nohpa`: Topology Aware Hints version of the orders app without Horizontal Pod Autoscaling
 
-There are soft links to the `nohpa` versions of the applications, `orders` and `orders-topo`.  We will reference these in the steps.
+The `hpa` version of the application, `orders` is soft-linked to `orders-app-oha-bb/orders-hpa`.
 
 More information on [oha](https://github.com/hatoo/oha) and [bb](https://github.com/BuoyantIO/bb).
 
 More information on the [Colorwheel](https://github.com/BuoyantIO/colorwheel) application.
-
 
 ## IMPORTANT! Building the `oha` Load Generator
 
