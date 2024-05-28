@@ -21,6 +21,7 @@ spec:
       containers:
       - name: oha
         image: hatoo/oha:latest
+        imagePullPolicy: Never
         args: ["-q", "10", "-z", "525600m", "http://fulfillment.orders.svc.cluster.local"]
         resources:
           requests:
