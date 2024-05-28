@@ -1,0 +1,16 @@
+apiVersion: linkerd.io/v1alpha2
+kind: ServiceProfile
+metadata:
+  name: fulfillment.orders.svc.cluster.local
+  namespace: orders
+spec:
+  retryBudget:
+    retryRatio: 1.0
+    minRetriesPerSecond: 10
+    ttl: 10s
+  routes:
+  - condition:
+      method: GET
+      pathRegex: /
+    name: GET /
+    isRetryable: true
