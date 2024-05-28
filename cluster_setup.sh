@@ -123,7 +123,7 @@ $(sed 's/^/          /' < certs/ca.crt )
             scheme: kubernetes.io/tls
         destinationController:
           additionalArgs:
-            - -ext-endpoint-zone-weights
+            #- -ext-endpoint-zone-weights
 EOF
 
 kubectl apply -f linkerd-control-plane-config-hazl.yaml --context=hazl
