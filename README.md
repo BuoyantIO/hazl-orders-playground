@@ -40,7 +40,7 @@ For more information, click [here](more-hazl.md).
 - The `watch` command must be installed and working, if you want to use it
 - The `kubectx` command must be installed and working, if you want to use it
 - [Buoyant Enterprise for Linkerd License](https://enterprise.buoyant.io)
-- [The Demo Assets, from GitHub](https://github.com/BuoyantIO/hazl-orders-playground)
+- [The Playground Assets, from GitHub](https://github.com/BuoyantIO/hazl-orders-playground)
 
 All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from the link above. Instructions on obtaining the demo assets from GitHub are below.
 
