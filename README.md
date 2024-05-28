@@ -160,8 +160,6 @@ A key component of the playground is the Grafana dashboard.  This provides a num
 
 The full [JSON model](./dashboard-json-model.json) for the dashboard.  Feel free to use it to build your own dashboards!
 
-I like to open two copies of the dashboard, side-by-side using a [split screen](https://support.apple.com/guide/mac-help/use-apps-in-split-view-mchl4fbe2921/mac) on my Mac.
-
 I've created a template for the Grafana dashboard for anyone to use, but remember...
 
 **_PLEASE CLONE THE DASHBOARD TO YOUR FOLDER! DO NOT EDIT THE DASHBOARD TEMPLATE!_**
@@ -194,7 +192,7 @@ This will drop you into the `Save As` dialog, as shown below. **_PLEASE SELECT Y
 
 ![Grafana Dashboard: Save Copy](images/grafana-dashboard-save-copy.png)
 
-Once you have your dashboard copy, copy the URL into a second browser window.  Select the HAZL cluster from the drop-down in one window, and the TOPO cluster in the other.  For both clusters, select the Orders namespace.  See the example below.
+Once you have your dashboard copy, select the HAZL cluster from the drop-down, then select the Orders namespace.  See the example below.
 
 ![Grafana Dashboard: End Result](images/grafana-dashboard-example1.png)
 
@@ -230,9 +228,9 @@ Each directory contains:
 └── warehouse-oakland.yaml
 ```
 
-For each version, there are two copies of the Orders application:
+For each version, two copies of the Orders application exist:
 
-- `orders-hpa`: HAZL version of the orders app with Horizontal Pod Autoscaling
+- `orders-hpa`: HAZL version of the orders app with Horizontal Pod Autoscaling (default)
 - `orders-nohpa`: HAZL version of the orders app without Horizontal Pod Autoscaling
 
 The `hpa` version of the application, `orders` is soft-linked to `orders-app-oha-bb/orders-hpa`.
@@ -277,47 +275,47 @@ You should see the `hatoo/oha:latest` container image.
 
 ## Deploy Two Kubernetes Clusters With Buoyant Enterprise for Linkerd
 
-First, we'll deploy two Kubernetes clusters using `k3d` and deploy Buoyant Enterprise for Linkerd (BEL) on each.  One the cluster with HAZL, we will deploy the HAZL proxy, on the cluster with Topology Aware Routing we will deploy a non-HAZL proxy.  We are deploying Linkerd to the TAR cluster to get Buoyant Cloud visibility in a side-by-side fashion.
+First, we'll deploy our Kubernetes cluster using `k3d` with Buoyant Enterprise for Linkerd (BEL).
 
 ### Task 1: Clone the `hazl-tar-orders-playground` Assets
 
-[GitHub: HAZL | Topology Aware Routing Playground](https://github.com/BuoyantIO/hazl-tar-orders-playground)
+[GitHub: HAZL | Orders Playground](https://github.com/BuoyantIO/hazl-orders-playground)
 
-To get the resources we will be using in this demonstration, you will need to clone a copy of the GitHub `BuoyantIO/hazl-tar-orders-playground` repository.
+To get the resources we will be using in this demonstration, you will need to clone a copy of the GitHub `BuoyantIO/hazl-orders-playground` repository.
 
-Clone the `BuoyantIO/hazl-tar-orders-playground` GitHub repository to your preferred working directory:
+Clone the `BuoyantIO/hazl-orders-playground` GitHub repository to your preferred working directory:
 
 ```bash
-git clone https://github.com/BuoyantIO/hazl-tar-orders-playground.git
+git clone https://github.com/BuoyantIO/hazl-orders-playground.git
 ```
 
 Change directory to the `hazl-tar-orders-playground` directory:
 
 ```bash
-cd hazl-tar-orders-playground
+cd hazl-orders-playground
 ```
 
-Taking a look at the contents of `hazl-tar-orders-playground`:
+Taking a look at the contents of `hazl-orders-playground`:
 
 ```bash
 ls -la
 ```
 
-With the assets in place, we can proceed to creating our clusters using `k3d`.
+With the assets in place, we can proceed to creating our cluster using `k3d`.
 
-### Task 2: Deploy two Kubernetes Clusters Using `k3d`
+### Task 2: Deploy Our Kubernetes Cluster Using `k3d`
 
-Before we can deploy **Buoyant Enterprise for Linkerd**, we're going to need two Kubernetes clusters. Fortunately, we can use the included automation for that.  If you'd like to do things the hard way, click [here](cluster-the-hard-way.md).
+Before we can deploy **Buoyant Enterprise for Linkerd**, we're going to need a Kubernetes cluster. Fortunately, we can use the included automation for that.  If you'd like to do things the hard way, click [here](cluster-the-hard-way.md).
 
-Deploy the clusters, using the script:
+Deploy the cluster, using the script:
 
 ```bash
 ./cluster_setup.sh
 ```
 
-There are a few instances of the `watch` command in the script to monitor deployments.  When the deployment is complete, use `CTRL-C` to exit that instance of the `watch` command.
+You'll hit a few instances of the `watch` command in the script to monitor deployments.  When the deployment completes, use `CTRL-C` to exit that instance of the `watch` command.
 
-That's it!  Everything should be ready for you to start exploring HAZL and Topology Aware Hints side-by-side.
+That's it!  Everything should be ready for you to start exploring HAZL.
 
 ## How to Manipulate the Environments
 

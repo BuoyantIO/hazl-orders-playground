@@ -24,7 +24,7 @@ spec:
         image: docker.io/buoyantio/bb:v0.0.7
         ports:
         - containerPort: 8080
-        args: ["terminus", "--h1-server-port", "8080", "--sleep-in-millis", "200", "--percent-failure", "25", "--response-text", "success"]
+        args: ["terminus", "--h1-server-port", "8080", "--sleep-in-millis", "600", "--response-text", "success"]
         resources:
           requests:
             cpu: 10m # Overprovision
