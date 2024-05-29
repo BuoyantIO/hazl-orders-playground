@@ -16,4 +16,6 @@ k3d cluster list
 kubectx -d hazl
 kubectx
 
+echo "Cluster deleted!"
+
 exit 0
