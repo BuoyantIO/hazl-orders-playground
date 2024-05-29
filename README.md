@@ -494,6 +494,6 @@ kubectx
 
 We shouldn't see any evidence of either the `hazl` or `topo` clusters.
 
-## Summary: HAZL | Topology Aware Routing Playground
+## Summary: HAZL | Orders Playground
 
 Summarize the entire thing here. Bullet points?
