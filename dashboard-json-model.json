@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 36,
+  "id": 19,
   "links": [
     {
       "asDropdown": false,
@@ -64,7 +64,7 @@
         "content": "<div style=\"display: flex; align-items: center\">\n  <img src=\"https://buoyant.cloud/dist/favicon.ico\" style=\"height:32px;\"/>&nbsp;\n  <span style=\"font-size: 32px\">$cluster_name</span>\n</div>",
         "mode": "html"
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -198,7 +198,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum (\n  sum(\n    rate(\n      outbound_tcp_write_bytes_total{\n        cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      outbound_tcp_read_bytes_total{\n        cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  unless ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          outbound_tcp_write_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          outbound_tcp_read_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          outbound_tcp_write_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          outbound_tcp_read_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
+          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  unless ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -214,7 +214,7 @@
             "uid": "${org}"
           },
           "editorMode": "code",
-          "expr": "sum (\n  sum(\n    rate(\n      outbound_tcp_write_bytes_total{\n        cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      outbound_tcp_read_bytes_total{\n        cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  and ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          outbound_tcp_write_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          outbound_tcp_read_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          outbound_tcp_write_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          outbound_tcp_read_bytes_total{\n            cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
+          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  and ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", cluster_name=\"$cluster_name\", tls=\"true\", namespace=~\"$namespace\", workload_name!=\"buoyant-cloud-metrics\",peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, workload_name, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{cluster_name=\"$cluster_name\", container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "Same-AZ",
@@ -314,7 +314,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(outbound_response_total{classification=\"success\", cluster_name=\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m])) by (workload_name)\n/\nsum(rate(outbound_response_total{cluster_name=\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m])) by (workload_name)",
+          "expr": "sum(rate(response_total{direction=\"outbound\", classification=\"success\", cluster_name=\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m])) by (workload_name)\n/\nsum(rate(response_total{direction=\"outbound\", cluster_name=\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m])) by (workload_name)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -417,7 +417,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(\n    histogram_quantile(\n        0.95,\n        sum(\n            rate(\n                outbound_response_latency_ms_bucket{cluster_name=~\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m]\n            )\n        ) by (\n            le,cluster_id,cluster_name,\n            namespace,workload_kind,workload_name\n        )\n    )\n) by (workload_name)",
+          "expr": "sum(\n    histogram_quantile(\n        0.95,\n        sum(\n            rate(\n                response_latency_ms_bucket{direction=\"outbound\", cluster_name=~\"$cluster_name\", namespace=~\"$namespace\", workload_kind=~\"$workload_kind\", workload_name=~\"orders-.*\"}[1m]\n            )\n        ) by (\n            le,cluster_id,cluster_name,\n            namespace,workload_kind,workload_name\n        )\n    )\n) by (workload_name)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1123,7 +1123,7 @@
           }
         ]
       },
-      "pluginVersion": "10.4.2",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1169,7 +1169,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1219,7 +1220,7 @@
           }
         ]
       },
-      "pluginVersion": "10.0.10",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1265,7 +1266,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1315,7 +1317,7 @@
           }
         ]
       },
-      "pluginVersion": "10.0.10",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1361,7 +1363,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1423,7 +1426,7 @@
           }
         ]
       },
-      "pluginVersion": "10.0.10",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1470,7 +1473,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1520,7 +1524,7 @@
           }
         ]
       },
-      "pluginVersion": "10.0.10",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1578,7 +1582,7 @@
         "content": "<div>\n  <div style=\"position: absolute; top: 0, left: 0\">\n    <a href=\"https://buoyant.cloud\" target=\"_blank\"><img src=\"https://buoyant.io/images/buoyant_logo.svg\" style=\"height: 30px;\"></a>\n  </div>\n</div>\n",
         "mode": "html"
       },
-      "pluginVersion": "10.0.10",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1599,9 +1603,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "demos",
-          "value": "a6b34a3b-c78c-4e3a-8a61-e134fdc0a10e"
+          "selected": true,
+          "text": "prometheus",
+          "value": "P1809F7CD0C75ACF3"
         },
         "hide": 0,
         "includeAll": false,
@@ -1778,6 +1782,6 @@
   "timezone": "",
   "title": "HAZL | Orders Dashboard - TEMPLATE",
   "uid": "cdj1rd5s0cdmoa",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }

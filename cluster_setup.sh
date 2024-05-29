@@ -165,6 +165,10 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana \
   -f grafana_values.yaml
 
+# Grant viz Prometheus access to Grafana, need to add an AuthorizationPolicy pointing to its ServiceAccount
+
+kubectl apply -f authzpolicy-grafana.yaml
+
 # Install Linkerd Viz to Enable Success Rate Metrics
 
 linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
