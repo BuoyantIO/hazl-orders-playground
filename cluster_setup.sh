@@ -190,9 +190,8 @@ kubectl apply -f linkerd-data-plane-viz-config.yaml --context=hazl
 kubectl apply -f authzpolicy-grafana.yaml
 
 # Port forward the Grafana dashboard to localhost:3000
-
-export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
-kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
+#
+#export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}") ; kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
 
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
