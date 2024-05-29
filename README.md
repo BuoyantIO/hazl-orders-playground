@@ -228,7 +228,7 @@ Each directory contains:
 
 For each version, two copies of the Orders application exist:
 
-- `orders-hpa`: HAZL version of the orders app with Horizontal Pod Autoscaling (default)
+- `orders-hpa`: HAZL version of the orders app with Horizontal Pod Autoscaling
 - `orders-nohpa`: HAZL version of the orders app without Horizontal Pod Autoscaling
 
 The `hpa` version of the application, `orders` is soft-linked to `orders-app-oha-bb/orders-hpa`.
