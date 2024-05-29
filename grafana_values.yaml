@@ -61,9 +61,9 @@ dashboardProviders:
 
 dashboards:
   default:
-    # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
     hazl-dashboard:
-      file: ./dashboard-json-model.json
+      file: dashboard-json-model.json
+    # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
     top-line:
       gnetId: 15474
       revision: 4
