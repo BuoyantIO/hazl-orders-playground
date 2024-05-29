@@ -36,6 +36,7 @@ datasources:
     apiVersion: 1
     datasources:
     - name: prometheus
+      label: demo-cluster-orders-hazl
       type: prometheus
       access: proxy
       orgId: 1
