@@ -61,8 +61,8 @@ The top-level contents of the repository looks something like this:
 ├── images                               <-- Images for the README
 ├── orders -> orders-oha-bb/orders-hpa
 ├── orders-colorwheel                    <-- The Orders application, uses Colorwheel
-│   ├── orders-hpa-colorwheel            <-- The Orders application, with Horizontal Pod Autoscaling
-│   ├── orders-nohpa-colorwheel          <-- The Orders application, without Horizontal Pod Autoscaling
+│   ├── orders-hpa                       <-- The Orders application, with Horizontal Pod Autoscaling
+│   ├── orders-nohpa                     <-- The Orders application, without Horizontal Pod Autoscaling
 │   ├── warehouse-config-120ms.yaml      <-- Manifest to configure 120ms of latency in Chicago warehouse
 │   ├── warehouse-config-80ms.yaml       <-- Manifest to configure 120ms of latency in Chicago warehouse
 │   └── warehouse-config.yaml            <-- Manifest to reset warehouse configuration
@@ -204,8 +204,8 @@ This repository includes the **Orders** application, which generates traffic acr
 .
 ├── orders -> orders-oha-bb/orders-hpa
 ├── orders-colorwheel
-│   ├── orders-hpa-colorwheel
-│   └── orders-nohpa-colorwheel
+│   ├── orders-hpa
+│   └── orders-nohpa
 └── orders-oha-bb
     ├── orders-hpa
     └── orders-nohpa
