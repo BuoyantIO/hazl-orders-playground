@@ -4,7 +4,7 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, Linkerd installation and installs the Orders application
 # Tom Dean | Buoyant
-# Last edit: 5/28/2024
+# Last edit: 5/29/2024
 
 # Let's set some variables!
 
@@ -159,9 +159,15 @@ kubectl rollout status daemonset/buoyant-cloud-metrics -n linkerd-buoyant --cont
 sleep 20
 linkerd check --proxy -n linkerd-buoyant --context hazl
 
+# Install Grafana
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install grafana -n grafana --create-namespace grafana/grafana \
+  -f grafana_values.yaml
+
 # Install Linkerd Viz to Enable Success Rate Metrics
 
-linkerd viz install --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
+linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
 
 # Create the Data Plane for the linkerd-viz namespace
 
