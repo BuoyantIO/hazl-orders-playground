@@ -60,14 +60,12 @@ The top-level contents of the repository looks something like this:
 ├── more-hazl.md                         <-- More information on HAZL
 ├── images                               <-- Images for the README
 ├── orders -> orders-oha-bb/orders-hpa
-├── orders-colorwheel
 ├── orders-colorwheel                    <-- The Orders application, uses Colorwheel
 │   ├── orders-hpa-colorwheel            <-- The Orders application, with Horizontal Pod Autoscaling
 │   ├── orders-nohpa-colorwheel          <-- The Orders application, without Horizontal Pod Autoscaling
-│   ├── warehouse-config-120ms.yaml
-│   ├── warehouse-config-80ms.yaml
-│   └── warehouse-config.yaml
-├── orders-oha-bb
+│   ├── warehouse-config-120ms.yaml      <-- Manifest to configure 120ms of latency in Chicago warehouse
+│   ├── warehouse-config-80ms.yaml       <-- Manifest to configure 120ms of latency in Chicago warehouse
+│   └── warehouse-config.yaml            <-- Manifest to reset warehouse configuration
 ├── orders-oha-bb                        <-- The Orders application, uses oha/bb
 │   ├── orders-hpa                       <-- The Orders application, with Horizontal Pod Autoscaling
 │   └── orders-nohpa                     <-- The Orders application, with Horizontal Pod Autoscaling
@@ -95,7 +93,7 @@ The repository contains the following automation:
 - `cluster_destroy.sh`
   - Script to destroy the cluster environment
 - `traffic_check.sh`
-  - Script to monitor application traffic in the `testing-oha-bb` directory.
+  - Script to monitor application traffic, located in the `testing-oha-bb` directory.
 
 If you choose to use the `cluster_setup.sh` script, make sure you've created the `settings.sh` file and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
 
@@ -239,7 +237,7 @@ More information on [oha](https://github.com/hatoo/oha) and [bb](https://github.
 
 More information on the [Colorwheel](https://github.com/BuoyantIO/colorwheel) application.
 
-## IMPORTANT! Building the `oha` Load Generator
+## IMPORTANT! Building the `oha` Load Generator Container Image
 
 _You will need build the container image for the `oha` load generator for the `orders-*` deployments._  The `cluster_setup.sh` script will import the `hatoo/oha:latest` container image from Docker for you, but it has to be in the Docker container registry first.
 
@@ -272,6 +270,8 @@ docker images
 ```
 
 You should see the `hatoo/oha:latest` container image.
+
+If you're going to use the container image in `k3d` and not use the `cluster_setup.sh` script, you will need to run `k3d image import hatoo/oha:latest -c CLUSTER_NAME` after creating your cluster to import the `hatoo/oha:latest` container image.
 
 ## Deploy Two Kubernetes Clusters With Buoyant Enterprise for Linkerd
 
