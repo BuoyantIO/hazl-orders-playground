@@ -165,10 +165,6 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana \
   -f grafana_values.yaml
 
-# Grant viz Prometheus access to Grafana, need to add an AuthorizationPolicy pointing to its ServiceAccount
-
-kubectl apply -f authzpolicy-grafana.yaml
-
 # Install Linkerd Viz to Enable Success Rate Metrics
 
 linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
@@ -189,9 +185,14 @@ EOF
 
 kubectl apply -f linkerd-data-plane-viz-config.yaml --context=hazl
 
+# Grant viz Prometheus access to Grafana, need to add an AuthorizationPolicy pointing to its ServiceAccount
+
+kubectl apply -f authzpolicy-grafana.yaml
+
 # Port forward the Grafana dashboard to localhost:3000
 
-export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}") ; kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
+export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
 
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
