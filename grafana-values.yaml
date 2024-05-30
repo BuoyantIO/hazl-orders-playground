@@ -50,7 +50,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   #labels: {}
   path: /
-  #hosts:
+  hosts: {}
   #  - localhost
 
 datasources:
