@@ -46,7 +46,7 @@ ingress:
   #ingressClassName: default
   # Values can be templated
   annotations:
-    kubernetes.io/ingress.class: "default"
+    kubernetes.io/ingress.class: "traefik"
     ingress.kubernetes.io/ssl-redirect: "false"
     # kubernetes.io/tls-acme: "true"
   #labels: {}
