@@ -5,6 +5,10 @@ metadata:
 servers: 1
 agents: 3
 network: multiaz-orders-hazl
+ports:
+  - port: 9999:80 # same as `--port '9999:80@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
 image: rancher/k3s:v1.29.2-k3s1
 options:
   k3d:
