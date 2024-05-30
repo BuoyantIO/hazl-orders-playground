@@ -38,8 +38,6 @@ service:
   annotations: {}
   labels: {}
   portName: service
-  # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
-  appProtocol: ""
 
 ingress:
   enabled: true
@@ -52,26 +50,8 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
-
-  # pathType is only for k8s >= 1.1=
-  #pathType: Prefix
-
   hosts:
-    - "*"
-  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-  #extraPaths: []
-  # - path: /*
-  #   backend:
-  #     serviceName: ssl-redirect
-  #     servicePort: use-annotation
-  ## Or for k8s > 1.19
-    - path: /*
-      pathType: Prefix
-      backend:
-        service:
-          name: grafana
-          port: 80
-  #         name: use-annotation
+    - localhost
 
 datasources:
   datasources.yaml:
