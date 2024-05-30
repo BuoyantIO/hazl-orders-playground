@@ -18,15 +18,15 @@ CLI_VERSION=install
 
 # Create the k3d clusters
 
-k3d cluster delete demo-cluster-orders-hazl
-k3d cluster create -c cluster/demo-cluster-orders-hazl.yaml --wait
-k3d image import hatoo/oha:latest -c demo-cluster-orders-hazl
+k3d cluster delete hazl-orders-playground
+k3d cluster create -c cluster/hazl-orders-playground.yaml --wait
+k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
 # Configure the kubectl context
 
 kubectx -d hazl
-kubectx hazl=k3d-demo-cluster-orders-hazl
+kubectx hazl=k3d-hazl-orders-playground
 kubectx hazl
 kubectx
 
