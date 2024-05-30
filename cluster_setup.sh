@@ -194,8 +194,8 @@ kubectl apply -f authzpolicy-grafana.yaml
 #export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}") ; kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
 
 # Create the grafana-ingress Ingress
-
-kubectl apply -f grafana-ingress.yaml --context hazl
+#
+#kubectl apply -f grafana-ingress.yaml --context hazl
 
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
