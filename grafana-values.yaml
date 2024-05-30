@@ -28,8 +28,8 @@ grafana.ini:
 service:
   enabled: true
   type: LoadBalancer
-  loadBalancerIP: "192.168.10.144"
-  loadBalancerClass: "traefik"
+  loadBalancerIP: ""
+  loadBalancerClass: ""
   #loadBalancerSourceRanges: []
   port: 80
   targetPort: 3000
@@ -43,10 +43,11 @@ ingress:
   enabled: true
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-  ingressClassName: traefik
+  #ingressClassName: default
   # Values can be templated
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: "default"
+    ingress.kubernetes.io/ssl-redirect: "false"
     # kubernetes.io/tls-acme: "true"
   #labels: {}
   path: /

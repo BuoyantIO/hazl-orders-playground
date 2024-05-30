@@ -15,8 +15,6 @@ options:
     disableLoadbalancer: false
   k3s:
     extraArgs:
-      - arg: --disable=servicelb,traefik
-        nodeFilters: [server:*]
       - arg: --debug
         nodeFilters: [server:*]
     nodeLabels:
