@@ -161,7 +161,6 @@ linkerd check --proxy -n linkerd-buoyant --context hazl
 
 # Install Grafana
 
-kubectl apply -f grafana-dashboard-configmap.yaml
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana \
   -f grafana-values.yaml --debug
