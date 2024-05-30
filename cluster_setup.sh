@@ -163,7 +163,7 @@ linkerd check --proxy -n linkerd-buoyant --context hazl
 
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana \
-  -f grafana-values.yaml
+  -f grafana-values.yaml --debug
 
 # Install Linkerd Viz to Enable Success Rate Metrics
 
