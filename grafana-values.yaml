@@ -30,7 +30,7 @@ service:
   type: LoadBalancer
   loadBalancerIP: ""
   loadBalancerClass: "traefik"
-  loadBalancerSourceRanges: []
+  #loadBalancerSourceRanges: []
   port: 80
   targetPort: 3000
     # targetPort: 4181 To be used with a proxy extraContainer
@@ -48,10 +48,10 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: traefik
     # kubernetes.io/tls-acme: "true"
-  labels: {}
+  #labels: {}
   path: /
-  hosts:
-    - localhost
+  #hosts:
+  #  - localhost
 
 datasources:
   datasources.yaml:
