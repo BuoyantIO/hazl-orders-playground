@@ -82,10 +82,11 @@ dashboardProviders:
       options:
         path: /var/lib/grafana/dashboards/default
 
+dashboardsConfigMaps:
+  default: "grafana-dashboards"
+
 dashboards:
   default:
-    hazl-dashboard:
-      file: dashboards/hazl-orders-dashboard.json
     # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
     top-line:
       gnetId: 15474
