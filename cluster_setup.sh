@@ -206,6 +206,15 @@ kubectl apply -f buoyant-cloud-metrics.yaml --context hazl
 
 kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context hazl
 
+# Install Kubecost and set up Ingress
+
+helm install kubecost cost-analyzer \
+--repo https://kubecost.github.io/cost-analyzer/ \
+--namespace kubecost --create-namespace \
+--set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
+
+kubectl apply -f kubecost-ingress.yaml
+
 # Deploy the Orders application to both clusters
 # Press CTRL-C to exit each watch command
 
