@@ -29,7 +29,7 @@ service:
   enabled: true
   type: LoadBalancer
   loadBalancerIP: ""
-  loadBalancerClass: ""
+  loadBalancerClass: "traefik"
   loadBalancerSourceRanges: []
   port: 80
   targetPort: 3000
@@ -37,7 +37,7 @@ service:
   ## Service annotations. Can be templated.
   annotations: {}
   labels: {}
-  portName: service
+  #portName: service
 
 ingress:
   enabled: true
