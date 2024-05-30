@@ -61,7 +61,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<div style=\"display: flex; align-items: center\">\n  <img src=\"https://buoyant.cloud/dist/favicon.ico\" style=\"height:32px;\"/>&nbsp;\n  <span style=\"font-size: 32px\">$cluster_name</span>\n</div>",
+        "content": "<div style=\"display: flex; align-items: center\">\n  <img src=\"https://buoyant.cloud/dist/favicon.ico\" style=\"height:32px;\"/>&nbsp;\n  <span style=\"font-size: 32px\">HAZL | Orders Dashboard</span>\n</div>",
         "mode": "html"
       },
       "pluginVersion": "10.4.1",
@@ -520,7 +520,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(inbound_response_total{no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m]))",
+          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -623,7 +623,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(inbound_response_total{no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m])) by (deployment)",
+          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m])) by (deployment)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -685,8 +685,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -788,8 +787,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -891,8 +889,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -932,7 +929,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(outbound_response_total{no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m]))",
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -994,8 +991,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1035,7 +1031,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(inbound_response_total{no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m])) by (deployment)",
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m])) by (deployment)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1072,8 +1068,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1169,8 +1164,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1266,8 +1260,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1363,8 +1356,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1473,8 +1465,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1671,6 +1662,6 @@
   "timezone": "",
   "title": "HAZL | Orders Dashboard",
   "uid": "cdj1rd5s0cdmoa",
-  "version": 19,
+  "version": 21,
   "weekStart": ""
 }
