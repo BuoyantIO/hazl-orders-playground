@@ -21,15 +21,37 @@ grafana.ini:
     format: text
     level: info
 
+## Expose the grafana service to be accessed from outside the cluster (LoadBalancer service).
+## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
+## ref: http://kubernetes.io/docs/user-guide/services/
+##
 service:
   enabled: true
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: ""
+  loadBalancerClass: ""
+  loadBalancerSourceRanges: []
   port: 80
   targetPort: 3000
     # targetPort: 4181 To be used with a proxy extraContainer
+  ## Service annotations. Can be templated.
   annotations: {}
   labels: {}
   portName: service
+  # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
+  appProtocol: ""
+
+ingress:
+  enabled: true
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  ingressClassName: traefik
+  # Values can be templated
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    # kubernetes.io/tls-acme: "true"
+  labels: {}
+  path: /
 
 datasources:
   datasources.yaml:
