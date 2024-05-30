@@ -54,23 +54,23 @@ ingress:
   path: /
 
   # pathType is only for k8s >= 1.1=
-  pathType: Prefix
+  #pathType: Prefix
 
   hosts:
     - "*"
   ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-  extraPaths: []
+  #extraPaths: []
   # - path: /*
   #   backend:
   #     serviceName: ssl-redirect
   #     servicePort: use-annotation
   ## Or for k8s > 1.19
-  # - path: /*
-  #   pathType: Prefix
-  #   backend:
-  #     service:
-  #       name: ssl-redirect
-  #       port:
+    - path: /*
+      pathType: Prefix
+      backend:
+        service:
+          name: grafana
+          port: 80
   #         name: use-annotation
 
 datasources:
