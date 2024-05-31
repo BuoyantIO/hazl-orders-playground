@@ -3,7 +3,7 @@ podAnnotations:
 
 grafana.ini:
   server:
-    root_url: '%(protocol)s://%(domain)s:%(http_port)s/grafana'
+    root_url: '%(protocol)s://%(domain)s:9999/grafana'
   auth:
     disable_login_form: true
   auth.anonymous:
