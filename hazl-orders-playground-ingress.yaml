@@ -12,14 +12,14 @@ spec:
       paths:
       - backend:
           service:
-            name: kubecost-cost-analyzer.kubecost
+            name: kubecost-ext
             port:
               number: 9090
         path: /kubecost
         pathType: Prefix
       - backend:
           service:
-            name: grafana.grafana
+            name: grafana-ext
             port:
               number: 3000
         path: /grafana
