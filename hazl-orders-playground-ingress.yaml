@@ -4,7 +4,8 @@ metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
     kubernetes.io/ingress.class: traefik
-  name: hazl-orders-playground-ingress
+  name: grafana-ingress
+  namespace: grafana
 spec:
   ingressClassName: traefik
   rules:
@@ -12,15 +13,29 @@ spec:
       paths:
       - backend:
           service:
-            name: kubecost-ext
-            port:
-              number: 9090
-        path: /kubecost
-        pathType: Prefix
-      - backend:
-          service:
             name: grafana-ext
             port:
               number: 3000
         path: /grafana
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: traefik
+  name: kubecost-ingress
+  namespace: kubecost
+spec:
+  ingressClassName: traefik
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: kubecost
+            port:
+              number: 9090
+        path: /kubecost
         pathType: Prefix
