@@ -213,7 +213,7 @@ helm install kubecost cost-analyzer \
 --namespace kubecost --create-namespace \
 --set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
 
-kubectl apply -f ext-services.yaml
+#kubectl apply -f ext-services.yaml
 kubectl apply -f hazl-orders-playground-ingress.yaml
 
 # Deploy the Orders application to both clusters
