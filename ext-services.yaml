@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kubecost-ext
+spec:
+  type: ExternalName
+  externalName: kubecost-cost-analyzer.kubecost.svc.cluster.local
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana-ext
+spec:
+  type: ExternalName
+  externalName: grafana.grafana.svc.cluster.local
