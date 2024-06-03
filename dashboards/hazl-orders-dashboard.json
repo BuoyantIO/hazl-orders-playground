@@ -498,7 +498,7 @@
         "x": 12,
         "y": 19
       },
-      "id": 194,
+      "id": 192,
       "options": {
         "legend": {
           "calcs": [],
@@ -520,7 +520,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m]))",
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -531,7 +531,7 @@
           "refId": "A"
         }
       ],
-      "title": "Overall Requests: All Warehouses",
+      "title": "Overall Requests: All Orders",
       "type": "timeseries"
     },
     {
@@ -601,7 +601,7 @@
         "x": 18,
         "y": 19
       },
-      "id": 193,
+      "id": 189,
       "options": {
         "legend": {
           "calcs": [],
@@ -623,7 +623,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m])) by (deployment)",
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m])) by (deployment)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -634,7 +634,7 @@
           "refId": "A"
         }
       ],
-      "title": "Requests By Warehouse",
+      "title": "Requests: Orders By Zone",
       "type": "timeseries"
     },
     {
@@ -910,7 +910,7 @@
         "x": 12,
         "y": 26
       },
-      "id": 192,
+      "id": 194,
       "options": {
         "legend": {
           "calcs": [],
@@ -932,7 +932,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m]))",
+          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -943,7 +943,7 @@
           "refId": "A"
         }
       ],
-      "title": "Overall Requests: All Orders",
+      "title": "Overall Requests: All Warehouses",
       "type": "timeseries"
     },
     {
@@ -1013,7 +1013,7 @@
         "x": 18,
         "y": 26
       },
-      "id": 189,
+      "id": 193,
       "options": {
         "legend": {
           "calcs": [],
@@ -1035,7 +1035,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"orders-.*\"}[1m])) by (deployment)",
+          "expr": "sum(rate(response_total{direction=\"inbound\", no_tls_reason!=\"loopback\", namespace=~\"$namespace\", deployment=~\"warehouse-.*\"}[1m])) by (deployment)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1046,7 +1046,7 @@
           "refId": "A"
         }
       ],
-      "title": "Requests: Orders By Zone",
+      "title": "Requests By Warehouse",
       "type": "timeseries"
     },
     {
@@ -1266,7 +1266,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1362,7 +1363,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1471,7 +1473,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
