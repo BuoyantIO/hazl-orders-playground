@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: warehouse-chicago
+  name: warehouse-oakland
   namespace: orders
   labels:
-    color: warehouse-chicago
+    color: warehouse-oakland
     app: fulfillment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      color: warehouse-chicago
+      color: warehouse-oakland
       app: fulfillment
   template:
     metadata:
       labels:
-        color: warehouse-chicago
+        color: warehouse-oakland
         app: fulfillment
     spec:
       containers:
@@ -49,4 +49,4 @@ spec:
             - matchExpressions:
               - key: topology.kubernetes.io/zone
                 operator: In
-                values: [zone-central]
+                values: [zone-west]
