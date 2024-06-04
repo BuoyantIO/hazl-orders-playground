@@ -66,7 +66,7 @@ helm install linkerd-buoyant \
   --create-namespace \
   --namespace linkerd-buoyant \
   --kube-context hazl \
-  --set metadata.agentName=$CLUSTER1_NAME \
+  --set metadata.agentName=$CLUSTER_NAME \
   --set api.clientID=$API_CLIENT_ID \
   --set api.clientSecret=$API_CLIENT_SECRET \
   --set metrics.debugMetrics=true \
