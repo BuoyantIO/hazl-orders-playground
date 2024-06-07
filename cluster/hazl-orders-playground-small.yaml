@@ -22,7 +22,7 @@ options:
     extraArgs:
       - arg: --debug
         nodeFilters: [server:*]
-      - arg: --flannel-backend=none@server:*
+      - arg: --flannel-backend=none
         nodeFilters: [server:*]
     nodeLabels:
       - label: topology.kubernetes.io/zone=zone-central
