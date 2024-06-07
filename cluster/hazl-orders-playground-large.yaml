@@ -11,7 +11,7 @@ ports:
       - loadbalancer
 image: rancher/k3s:v1.29.2-k3s1
 volumes:
-  - volume: calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml
+  - volume: ./calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml
     nodeFilters:
       - server:0
       - agent:*
