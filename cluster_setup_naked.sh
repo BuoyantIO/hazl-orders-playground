@@ -13,7 +13,7 @@ BEL_VERSION=enterprise-2.15.3
 CLI_VERSION=install
 
 # BEL: Preview
-# BEL_VERSION=preview-24.5.4
+# BEL_VERSION=preview-24.6.1
 # CLI_VERSION=install-preview
 
 # Create the k3d clusters
@@ -22,7 +22,7 @@ k3d cluster delete hazl-orders-playground
 k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml
 # Use the next line for Calico k3d deployments
 # You will need to point to the specific cluster configuration file or re-link the soft link
-#k3d cluster create -c cluster/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
+#k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
