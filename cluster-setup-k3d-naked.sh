@@ -1,5 +1,5 @@
 #!/bin/bash
-# cluster_setup_naked.sh
+# cluster-setup-k3d-naked.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, no Linkerd installation
