@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster/hazl-orders-playground.yaml
+k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml
 # Use the next line for Calico k3d deployments
 # You will need to point to the specific cluster configuration file or re-link the soft link
 #k3d cluster create -c cluster/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait

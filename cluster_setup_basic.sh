@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster/hazl-orders-playground.yaml --wait
+k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
