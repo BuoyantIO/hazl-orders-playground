@@ -1,8 +1,8 @@
 #!/bin/bash
-# cluster-setup-k3d.sh
+# cluster-setup-k3d-calico-basic.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
-# Automates cluster creation, Linkerd installation and installs the Orders application
+# Automates cluster creation and Linkerd installation
 # Tom Dean | Buoyant
 # Last edit: 6/10/2024
 
@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster-k3d/hazl-orders-k3d-playground.yaml --wait
+k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
@@ -159,44 +159,6 @@ kubectl rollout status daemonset/buoyant-cloud-metrics -n linkerd-buoyant --cont
 sleep 20
 linkerd check --proxy -n linkerd-buoyant --context hazl
 
-# Install Grafana
-
-helm repo add grafana https://grafana.github.io/helm-charts
-helm install grafana -n grafana --create-namespace grafana/grafana \
-  -f grafana-values.yaml --debug
-
-# Install Linkerd Viz to Enable Success Rate Metrics
-
-linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
-
-# Create the Data Plane for the linkerd-viz namespace
-
-cat <<EOF > linkerd-data-plane-viz-config.yaml
----
-apiVersion: linkerd.buoyant.io/v1alpha1
-kind: DataPlane
-metadata:
-  name: linkerd-viz
-  namespace: linkerd-viz
-spec:
-  workloadSelector:
-    matchLabels: {}
-EOF
-
-kubectl apply -f linkerd-data-plane-viz-config.yaml --context=hazl
-
-# Grant viz Prometheus access to Grafana, need to add an AuthorizationPolicy pointing to its ServiceAccount
-
-kubectl apply -f authzpolicy-grafana.yaml
-
-# Port forward the Grafana dashboard to localhost:3000
-#
-#export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}") ; kubectl --namespace grafana port-forward $POD_NAME 3000 > /dev/null 2>&1 &
-
-# Create the grafana-ingress Ingress
-#
-#kubectl apply -f grafana-ingress.yaml --context hazl
-
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
 # Patch with the buoyant-cloud-metrics.yaml manifest
@@ -205,38 +167,5 @@ kubectl apply -f authzpolicy-grafana.yaml
 kubectl apply -f buoyant-cloud-metrics.yaml --context hazl
 
 kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context hazl
-
-# Install Kubecost and set up Ingress
-
-#helm install kubecost cost-analyzer \
-#--repo https://kubecost.github.io/cost-analyzer/ \
-#--namespace kubecost --create-namespace \
-#--set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
-
-#kubectl apply -f ext-services.yaml
-#kubectl apply -f hazl-orders-playground-ingress.yaml
-
-# Deploy the Orders application to both clusters
-# Press CTRL-C to exit each watch command
-
-kubectl apply -k orders --context=hazl
-
-watch -n 1 kubectl get pods -n orders -o wide --sort-by .spec.nodeName --context=hazl
-
-# Deploy the Data Plane for the orders namespace
-
-cat <<EOF > linkerd-data-plane-orders-config.yaml
----
-apiVersion: linkerd.buoyant.io/v1alpha1
-kind: DataPlane
-metadata:
-  name: linkerd-orders
-  namespace: orders
-spec:
-  workloadSelector:
-    matchLabels: {}
-EOF
-
-kubectl apply -f linkerd-data-plane-orders-config.yaml --context=hazl
 
 exit 0

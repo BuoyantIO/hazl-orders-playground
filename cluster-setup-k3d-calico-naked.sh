@@ -1,5 +1,5 @@
 #!/bin/bash
-# cluster-setup-k3d-naked.sh
+# cluster-setup-k3d-calico-naked.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, no Linkerd installation
@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml
+k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 

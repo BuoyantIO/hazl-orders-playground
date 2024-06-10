@@ -1,10 +1,10 @@
 #!/bin/bash
-# cluster_destroy.sh
+# cluster-destroy-k3d.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster deletion and cleans up the hazl kubectl context
 # Tom Dean | Buoyant
-# Last edit: 5/30/2024
+# Last edit: 6/10/2024
 
 # Remove the k3d cluster
 
