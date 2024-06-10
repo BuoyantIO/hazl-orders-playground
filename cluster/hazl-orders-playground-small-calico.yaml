@@ -3,30 +3,33 @@ kind: Simple
 metadata:
   name: hazl-orders-playground
 servers: 1
-agents: 6
+agents: 3
 network: hazl-orders-playground
 ports:
   - port: 9999:80 # same as `--port '9999:80@loadbalancer'`
     nodeFilters:
       - loadbalancer
 image: rancher/k3s:v1.30.1-k3s1
+#volumes:
+#  - volume: "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml"
+#    nodeFilters:
+#      - server:0
+#      - agent:*
 options:
   k3d:
-    disableLoadbalancer: true
+    disableLoadbalancer: false
   k3s:
     extraArgs:
       - arg: --debug
         nodeFilters: [server:*]
+      - arg: --flannel-backend=none
+        nodeFilters: [server:*]
+      - arg: --disable-network-policy
+        nodeFilters: [server:*]
     nodeLabels:
       - label: topology.kubernetes.io/zone=zone-central
         nodeFilters: [agent:0]
-      - label: topology.kubernetes.io/zone=zone-central
+      - label: topology.kubernetes.io/zone=zone-west
         nodeFilters: [agent:1]
-      - label: topology.kubernetes.io/zone=zone-west
+      - label: topology.kubernetes.io/zone=zone-east
         nodeFilters: [agent:2]
-      - label: topology.kubernetes.io/zone=zone-west
-        nodeFilters: [agent:3]
-      - label: topology.kubernetes.io/zone=zone-east
-        nodeFilters: [agent:4]
-      - label: topology.kubernetes.io/zone=zone-east
-        nodeFilters: [agent:5]

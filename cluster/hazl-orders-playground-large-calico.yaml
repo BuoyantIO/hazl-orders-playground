@@ -10,12 +10,21 @@ ports:
     nodeFilters:
       - loadbalancer
 image: rancher/k3s:v1.30.1-k3s1
+#volumes:
+#  - volume: "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml"
+#    nodeFilters:
+#      - server:0
+#      - agent:*
 options:
   k3d:
     disableLoadbalancer: true
   k3s:
     extraArgs:
       - arg: --debug
+        nodeFilters: [server:*]
+      - arg: --flannel-backend=none@server:*
+        nodeFilters: [server:*]
+      - arg: --disable-network-policy
         nodeFilters: [server:*]
     nodeLabels:
       - label: topology.kubernetes.io/zone=zone-central

@@ -4,7 +4,7 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, no Linkerd installation
 # Tom Dean | Buoyant
-# Last edit: 6/3/2024
+# Last edit: 6/10/2024
 
 # Let's set some variables!
 
@@ -19,7 +19,10 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
+k3d cluster create -c cluster/hazl-orders-playground.yaml
+# Use the next line for Calico k3d deployments
+# You will need to point to the specific cluster configuration file or re-link the soft link
+#k3d cluster create -c cluster/hazl-orders-playground.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
