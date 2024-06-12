@@ -4,22 +4,22 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation and Linkerd installation
 # Tom Dean | Buoyant
-# Last edit: 6/10/2024
+# Last edit: 6/12/2024
 
 # Let's set some variables!
 
 # BEL: Stable
-BEL_VERSION=enterprise-2.15.3
+BEL_VERSION=enterprise-2.15.4
 CLI_VERSION=install
 
 # BEL: Preview
-# BEL_VERSION=preview-24.6.1
+# BEL_VERSION=preview-24.6.2
 # CLI_VERSION=install-preview
 
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster-k3d/hazl-orders-playground.yaml --wait
+k3d cluster create -c cluster-k3d/hazl-orders-playground-k3d-calico.yaml --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
