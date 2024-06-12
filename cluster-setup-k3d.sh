@@ -13,8 +13,8 @@ BEL_VERSION=enterprise-2.15.4
 CLI_VERSION=install
 
 # BEL: Preview
-# BEL_VERSION=preview-24.6.2
-# CLI_VERSION=install-preview
+#BEL_VERSION=preview-24.6.2
+#CLI_VERSION=install-preview
 
 # Create the k3d clusters
 
@@ -116,6 +116,11 @@ spec:
         proxy:
           image:
             version: $BEL_VERSION
+          additionalEnv:
+            - name: BUOYANT_BALANCER_LOAD_LOW
+              value: "0.6"
+            - name: BUOYANT_BALANCER_LOAD_HIGH
+              value: "1.3"
         identityTrustAnchorsPEM: |
 $(sed 's/^/          /' < certs/ca.crt )
         identity:

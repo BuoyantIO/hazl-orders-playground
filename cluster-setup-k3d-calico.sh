@@ -116,6 +116,11 @@ spec:
         proxy:
           image:
             version: $BEL_VERSION
+          additionalEnv:
+            - name: BUOYANT_BALANCER_LOAD_LOW
+              value: "0.6"
+            - name: BUOYANT_BALANCER_LOAD_HIGH
+              value: "1.3"
         identityTrustAnchorsPEM: |
 $(sed 's/^/          /' < certs/ca.crt )
         identity:
