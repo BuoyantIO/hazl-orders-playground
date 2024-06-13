@@ -3,10 +3,10 @@
 # Uses Calico as the CNI
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Tom Dean | Buoyant
-# Last edit: 6/10/2024
+# Last edit: 6/13/2024
 #
 # k3d configuration docs:
-# https://k3d.io/v5.3.0/usage/configfile/
+# https://k3d.io/v5.6.3/usage/configfile/
 
 apiVersion: k3d.io/v1alpha5
 kind: Simple
