@@ -1917,6 +1917,8 @@
     "timeRangeUpdatedDuringEditOrView": false,
     "timepicker": {
       "refresh_intervals": [
+        "1s",
+        "2s", 
         "5s",
         "10s",
         "30s",
@@ -1929,6 +1931,8 @@
         "1d"
       ],
       "time_options": [
+        "1m",
+        "2m",
         "5m",
         "15m",
         "1h",
