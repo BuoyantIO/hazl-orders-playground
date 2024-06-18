@@ -235,7 +235,7 @@
           "defaults": {
             "color": {
               "fixedColor": "purple",
-              "mode": "fixed"
+              "mode": "thresholds"
             },
             "decimals": 2,
             "mappings": [],
@@ -249,7 +249,7 @@
                 },
                 {
                   "color": "red",
-                  "value": 80
+                  "value": 1
                 }
               ]
             },
@@ -321,7 +321,7 @@
               "binary": {
                 "left": "KiB to GB Conversion",
                 "operator": "*",
-                "right": "0.02"
+                "right": "$traffic_cost"
               },
               "mode": "binary",
               "reduce": {
@@ -462,7 +462,7 @@
           "defaults": {
             "color": {
               "fixedColor": "blue",
-              "mode": "fixed"
+              "mode": "thresholds"
             },
             "mappings": [],
             "noValue": "No Traffic",
@@ -475,7 +475,7 @@
                 },
                 {
                   "color": "red",
-                  "value": 80
+                  "value": 1e-20
                 }
               ]
             }
@@ -1723,10 +1723,14 @@
           "current": {
             "selected": true,
             "text": [
-              "All"
+              "orders-central",
+              "orders-east",
+              "orders-west"
             ],
             "value": [
-              "$__all"
+              "orders-central",
+              "orders-east",
+              "orders-west"
             ]
           },
           "datasource": {
@@ -1736,7 +1740,7 @@
           "definition": "label_values(response_total,deployment)",
           "hide": 0,
           "includeAll": true,
-          "label": "Client_Deployment",
+          "label": "Client Deployment",
           "multi": true,
           "name": "client_deployment",
           "options": [],
@@ -1772,7 +1776,7 @@
           "definition": "label_values(response_total,namespace)",
           "hide": 0,
           "includeAll": true,
-          "label": "Client_Namespace",
+          "label": "Client Namespace",
           "multi": true,
           "name": "client_namespace",
           "options": [],
@@ -1795,10 +1799,14 @@
           "current": {
             "selected": true,
             "text": [
-              "All"
+              "warehouse-boston",
+              "warehouse-chicago",
+              "warehouse-oakland"
             ],
             "value": [
-              "$__all"
+              "warehouse-boston",
+              "warehouse-chicago",
+              "warehouse-oakland"
             ]
           },
           "datasource": {
@@ -1808,7 +1816,7 @@
           "definition": "label_values(response_total,deployment)",
           "hide": 0,
           "includeAll": true,
-          "label": "Application_Deployment",
+          "label": "Application Deployment",
           "multi": true,
           "name": "application_deployment",
           "options": [],
@@ -1844,7 +1852,7 @@
           "definition": "label_values(response_total,namespace)",
           "hide": 0,
           "includeAll": true,
-          "label": "Application_Namespace",
+          "label": "Application Namespace",
           "multi": true,
           "name": "application_namespace",
           "options": [],
@@ -1864,13 +1872,13 @@
         },
         {
           "current": {
-            "selected": false,
+            "selected": true,
             "text": "0.02",
             "value": "0.02"
           },
           "hide": 0,
           "includeAll": false,
-          "label": "Traffic_Cost",
+          "label": "Traffic Cost",
           "multi": false,
           "name": "traffic_cost",
           "options": [
@@ -1878,9 +1886,24 @@
               "selected": true,
               "text": "0.02",
               "value": "0.02"
+            },
+            {
+              "selected": false,
+              "text": "0.03",
+              "value": "0.03"
+            },
+            {
+              "selected": false,
+              "text": "0.04",
+              "value": "0.04"
+            },
+            {
+              "selected": false,
+              "text": "0.05",
+              "value": "0.05"
             }
           ],
-          "query": "0.02",
+          "query": "0.02,0.03,0.04,0.05",
           "queryValue": "",
           "skipUrlSync": false,
           "type": "custom"
@@ -1920,6 +1943,6 @@
     "timezone": "",
     "title": "HAZL Dashboard",
     "uid": "fdp2bf1csdd6ob",
-    "version": 14,
+    "version": 19,
     "weekStart": ""
   }
