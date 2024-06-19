@@ -321,7 +321,7 @@
               "binary": {
                 "left": "KiB to GB Conversion",
                 "operator": "*",
-                "right": "$traffic_cost"
+                "right": "${traffic_cost}"
               },
               "mode": "binary",
               "reduce": {
@@ -1872,8 +1872,8 @@
         {
           "current": {
             "selected": true,
-            "text": "0.05",
-            "value": "0.05"
+            "text": "0.02",
+            "value": "0.02"
           },
           "hide": 0,
           "includeAll": false,
@@ -1882,7 +1882,7 @@
           "name": "traffic_cost",
           "options": [
             {
-              "selected": false,
+              "selected": true,
               "text": "0.02",
               "value": "0.02"
             },
@@ -1897,7 +1897,7 @@
               "value": "0.04"
             },
             {
-              "selected": true,
+              "selected": false,
               "text": "0.05",
               "value": "0.05"
             }
@@ -1945,7 +1945,6 @@
     },
     "timezone": "",
     "title": "HAZL Dashboard",
-    "uid": "adp76jstb03cwc",
-    "version": 2,
+    "version": 3,
     "weekStart": ""
   }
