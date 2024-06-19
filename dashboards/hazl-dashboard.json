@@ -24,7 +24,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 1,
-    "id": 22,
+    "id": 23,
     "links": [
       {
         "asDropdown": false,
@@ -1291,8 +1291,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
-                  "value": null
+                  "color": "green"
                 },
                 {
                   "color": "red",
@@ -1388,8 +1387,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
-                  "value": null
+                  "color": "green"
                 },
                 {
                   "color": "red",
@@ -1485,8 +1483,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
-                  "value": null
+                  "color": "green"
                 },
                 {
                   "color": "red",
@@ -1739,7 +1736,7 @@
           "definition": "label_values(response_total,deployment)",
           "hide": 0,
           "includeAll": true,
-          "label": "Client Deployment",
+          "label": "Client Deployment(s)",
           "multi": true,
           "name": "client_deployment",
           "options": [],
@@ -1775,7 +1772,7 @@
           "definition": "label_values(response_total,namespace)",
           "hide": 0,
           "includeAll": true,
-          "label": "Client Namespace",
+          "label": "Client Namespace(s)",
           "multi": true,
           "name": "client_namespace",
           "options": [],
@@ -1815,7 +1812,7 @@
           "definition": "label_values(response_total,deployment)",
           "hide": 0,
           "includeAll": true,
-          "label": "Application Deployment",
+          "label": "Application Deployment(s)",
           "multi": true,
           "name": "application_deployment",
           "options": [],
@@ -1851,7 +1848,7 @@
           "definition": "label_values(response_total,namespace)",
           "hide": 0,
           "includeAll": true,
-          "label": "Application Namespace",
+          "label": "Application Namespace(s)",
           "multi": true,
           "name": "application_namespace",
           "options": [],
@@ -1871,7 +1868,7 @@
         },
         {
           "current": {
-            "selected": true,
+            "selected": false,
             "text": "0.02",
             "value": "0.02"
           },
@@ -1945,6 +1942,6 @@
     },
     "timezone": "",
     "title": "HAZL Dashboard",
-    "version": 3,
+    "version": 2,
     "weekStart": ""
   }
