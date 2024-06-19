@@ -24,7 +24,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 1,
-    "id": 19,
+    "id": 22,
     "links": [
       {
         "asDropdown": false,
@@ -61,7 +61,7 @@
             "showLineNumbers": false,
             "showMiniMap": false
           },
-          "content": "<div style=\"display: flex; align-items: center\">\n  <img src=\"https://buoyant.cloud/dist/favicon.ico\" style=\"height:32px;\"/>&nbsp;\n  <span style=\"font-size: 32px\">HAZL Dashboard</span>\n</div>",
+          "content": "<div style=\"display: flex; align-items: center\">\n  <img src=\"https://buoyant.cloud/dist/favicon.ico\" style=\"height:32px;\"/>&nbsp;\n  <span style=\"font-size: 32px\">High-Availability Zonal Load Balancing (HAZL) Dashboard</span>\n</div>",
           "mode": "html"
         },
         "pluginVersion": "11.0.0",
@@ -1595,8 +1595,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
-                  "value": null
+                  "color": "green"
                 },
                 {
                   "color": "red",
@@ -1873,8 +1872,8 @@
         {
           "current": {
             "selected": true,
-            "text": "0.02",
-            "value": "0.02"
+            "text": "0.05",
+            "value": "0.05"
           },
           "hide": 0,
           "includeAll": false,
@@ -1883,7 +1882,7 @@
           "name": "traffic_cost",
           "options": [
             {
-              "selected": true,
+              "selected": false,
               "text": "0.02",
               "value": "0.02"
             },
@@ -1898,7 +1897,7 @@
               "value": "0.04"
             },
             {
-              "selected": false,
+              "selected": true,
               "text": "0.05",
               "value": "0.05"
             }
@@ -1918,7 +1917,7 @@
     "timepicker": {
       "refresh_intervals": [
         "1s",
-        "2s", 
+        "2s",
         "5s",
         "10s",
         "30s",
@@ -1946,6 +1945,7 @@
     },
     "timezone": "",
     "title": "HAZL Dashboard",
-    "version": 19,
+    "uid": "adp76jstb03cwc",
+    "version": 2,
     "weekStart": ""
   }
