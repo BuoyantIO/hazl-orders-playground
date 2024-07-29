@@ -85,155 +85,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "semi-dark-red",
-            "mode": "continuous-RdYlGr"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Same-AZ"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cross-AZ"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 18,
-        "x": 0,
-        "y": 2
-      },
-      "id": 181,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "10.0.10",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  unless ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Cross-AZ",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  and ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Same-AZ",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Traffic",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "fixedColor": "purple",
             "mode": "thresholds"
           },
@@ -260,7 +111,7 @@
       "gridPos": {
         "h": 10,
         "w": 6,
-        "x": 18,
+        "x": 0,
         "y": 2
       },
       "id": 195,
@@ -358,7 +209,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "fixedColor": "semi-dark-red",
+            "mode": "continuous-RdYlGr"
           },
           "custom": {
             "axisBorderShow": false,
@@ -407,17 +259,48 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "binBps"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Same-AZ"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cross-AZ"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 9,
-        "x": 0,
-        "y": 12
+        "h": 10,
+        "w": 18,
+        "x": 6,
+        "y": 2
       },
-      "id": 187,
+      "id": 181,
       "options": {
         "legend": {
           "calcs": [],
@@ -440,118 +323,31 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"outbound\", classification=\"success\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)\n/\nsum(rate(response_total{direction=\"outbound\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)",
+          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  unless ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "__auto",
+          "legendFormat": "Cross-AZ",
           "range": true,
           "refId": "A"
-        }
-      ],
-      "title": "Success Rate: Orders By Zone",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 9,
-        "x": 9,
-        "y": 12
-      },
-      "id": 189,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "10.0.10",
-      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "outbound_http_balancer_adaptive_load_average{namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}",
+          "expr": "sum (\n  sum(\n    rate(\n      tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n    +\n    rate(\n      tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n      }[1m]\n    )\n  ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n  * on (pod) group_left (topology_kubernetes_io_zone)\n  (\n    sum(\n      container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n    ) by (pod, topology_kubernetes_io_zone)\n    * 0 + 1\n  )\n  and ignoring(matching_zone)\n  (\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"topology_kubernetes_io_zone\",\n      \"(.*)\"\n    )\n    ==\n    label_replace(\n      sum(\n        rate(\n          tcp_write_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n        +\n        rate(\n          tcp_read_bytes_total{direction=\"outbound\", tls=\"true\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\", peer=\"dst\", dst_zone!=\"\"\n          }[1m]\n        )\n      ) by (namespace, deployment, pod, instance, dst_namespace, dst_workload_name, dst_pod, dst_zone)\n      * on (pod) group_left (topology_kubernetes_io_zone)\n      (\n        sum(\n          container_memory_working_set_bytes{container=\"linkerd-proxy\"}\n        ) by (pod, topology_kubernetes_io_zone)\n        * 0 + 1\n      ),\n      \"matching_zone\",\n      \"$1\",\n      \"dst_zone\",\n      \"(.*)\"\n    )\n  )\n)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "Same-AZ",
           "range": true,
-          "refId": "A"
+          "refId": "B"
         }
       ],
-      "title": "HAZL Load Average: By Client",
+      "title": "Traffic",
       "type": "timeseries"
     },
     {
@@ -586,7 +382,7 @@
       "gridPos": {
         "h": 8,
         "w": 6,
-        "x": 18,
+        "x": 0,
         "y": 12
       },
       "id": 196,
@@ -699,17 +495,17 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 20
+        "h": 8,
+        "w": 9,
+        "x": 6,
+        "y": 12
       },
-      "id": 186,
+      "id": 187,
       "options": {
         "legend": {
           "calcs": [],
@@ -728,11 +524,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${org}"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(\n    histogram_quantile(\n        0.95,\n        sum(\n            rate(\n                response_latency_ms_bucket{direction=\"outbound\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m]\n            )\n        ) by (\n            le,namespace,deployment\n        )\n    )\n) by (deployment)",
+          "expr": "sum(rate(response_total{direction=\"outbound\", classification=\"success\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)\n/\nsum(rate(response_total{direction=\"outbound\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -743,7 +539,7 @@
           "refId": "A"
         }
       ],
-      "title": "Latency: Orders By Zone (ms)",
+      "title": "Success Rate: Orders By Zone",
       "type": "timeseries"
     },
     {
@@ -808,12 +604,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 20
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 12
       },
-      "id": 192,
+      "id": 189,
       "options": {
         "legend": {
           "calcs": [],
@@ -832,126 +628,18 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${org}"
+            "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m]))",
-          "format": "time_series",
+          "expr": "outbound_http_balancer_adaptive_load_average{namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}",
           "hide": false,
           "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Overall Requests",
+          "legendFormat": "{{pod}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Overall Requests: All Orders",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
-        "y": 20
-      },
-      "id": 197,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "10.0.10",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${org}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Requests: Orders By Zone",
+      "title": "HAZL Load Average: By Client",
       "type": "timeseries"
     },
     {
@@ -1019,7 +707,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 27
+        "y": 20
       },
       "id": 188,
       "options": {
@@ -1123,7 +811,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 27
+        "y": 20
       },
       "id": 180,
       "options": {
@@ -1160,6 +848,318 @@
         }
       ],
       "title": "Cross-AZ Traffic: By Destination",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "id": 186,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "10.0.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${org}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(\n    histogram_quantile(\n        0.95,\n        sum(\n            rate(\n                response_latency_ms_bucket{direction=\"outbound\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m]\n            )\n        ) by (\n            le,namespace,deployment\n        )\n    )\n) by (deployment)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Latency: Orders By Zone (ms)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 27
+      },
+      "id": 192,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "10.0.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${org}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Overall Requests",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Overall Requests: All Orders",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 27
+      },
+      "id": 197,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "10.0.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${org}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(response_total{direction=\"outbound\", no_tls_reason!=\"loopback\", namespace=~\"$client_namespace\", deployment=~\"$client_deployment\"}[1m])) by (deployment)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Requests: Orders By Zone",
       "type": "timeseries"
     },
     {
@@ -2047,6 +2047,6 @@
   },
   "timezone": "",
   "title": "HAZL Dashboard",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
