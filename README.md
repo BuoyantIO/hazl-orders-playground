@@ -10,7 +10,7 @@
 
 This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed which is accessible on [http://localhost:9999](http://localhost:9999), or outside the system at `http://<<hostname or IP>>:9999`.
 
-The Grafana instance deploys with the set of OSS Linkerd Grafana dashboards, plus there's a `dashboards` directory with JSON dashboard files that can be imported to Grafana, including a HAZL dashboard.
+The Grafana instance deploys with a set of OSS Linkerd Grafana dashboards, plus there's a `dashboards` directory with JSON dashboard files that can be imported to Grafana.
 
 ## High Availability Zonal Load Balancing (HAZL)
 
@@ -138,16 +138,16 @@ You should end up with a set of credentials in environment variables like this:
 ```bash
 export API_CLIENT_ID=[CLIENT_ID]         <--- Only if using Buoyant Cloud
 export API_CLIENT_SECRET=[CLIENT_SECRET] <--- Only if using Buoyant Cloud
-export BUOYANT_LICENSE=[LICENSE]
+export BUOYANT_LICENSE=[LICENSE]         <--- You will definitely need this
 ```
 
 Add these to a file in the root of the `linkerd-demos/demo-orders` directory, named `settings.sh`, plus add a new line with the cluster name, `export CLUSTER_NAME=hazl-orders-playground`, like this:
 
 ```bash
-export API_CLIENT_ID=[CLIENT_ID]         <--- Only if using Buoyant Cloud
-export API_CLIENT_SECRET=[CLIENT_SECRET] <--- Only if using Buoyant Cloud
-export BUOYANT_LICENSE=[LICENSE]
-export CLUSTER_NAME=hazl-orders-playground
+export API_CLIENT_ID=[CLIENT_ID]           <--- Only if using Buoyant Cloud
+export API_CLIENT_SECRET=[CLIENT_SECRET]   <--- Only if using Buoyant Cloud
+export BUOYANT_LICENSE=[LICENSE]           <--- You will definitely need this
+export CLUSTER_NAME=hazl-orders-playground <--- You will definitely need this
 ```
 
 Check the contents of the `settings.sh` file:
@@ -162,7 +162,7 @@ Once you're satisfied with the contents, `source` the file, to load the variable
 source settings.sh
 ```
 
-Now that you have a trial login, if you're using Buoyant Cloud, open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**. _Log in with the credentials you used for your trial account_.
+If you're using Buoyant Cloud (you will need access to this, not included in the Community account), open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**.
 
 ## Playground: `k3d` Cluster Configurations
 
