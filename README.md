@@ -86,7 +86,7 @@ The top-level contents of the repository looks something like this:
 │   ├── cluster-setup-k3d-naked-calico.sh
 │   ├── cluster-setup-k3d-naked.sh
 │   ├── cluster-setup-k3d.sh
-│   └── traffic_check.sh                     <-- Script to monitor application traffic
+│   └── traffic-check.sh
 └── testing-oha-bb
     ├── failure-chicago                      <-- Manifests to induce failure in the Chicago warehouse
     │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
@@ -104,18 +104,28 @@ The top-level contents of the repository looks something like this:
 
 The repository contains the following automation:
 
-- `cluster_setup.sh`
+- `cluster-setup-k3d.sh`
   - Script to stand up the cluster, install Linkerd and Orders
-- `cluster_destroy.sh`
+- `cluster-setup-k3d-basic.sh`
+  - Script to stand up the cluster, install Linkerd and Orders
+- `cluster-setup-k3d-calico.sh`
+  - Script to stand up the cluster, install Linkerd and Orders
+- `cluster-setup-k3d-naked.sh`
+  - Script to stand up the cluster, install Linkerd and Orders
+- `cluster-setup-k3d-basic-calico.sh`
+  - Script to stand up the cluster, install Linkerd and Orders
+- `cluster-setup-k3d-naked-calico.sh`
+  - Script to stand up the cluster, install Linkerd and Orders
+- `cluster-destroy-k3d.sh`
   - Script to destroy the cluster environment
-- `traffic_check.sh`
-  - Script to monitor application traffic, located in the `testing-oha-bb` directory.
+- `traffic-check.sh`
+  - Script to monitor application traffic.
 
-If you choose to use the `cluster_setup.sh` script, make sure you've created the `settings.sh` file and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
+If you choose to use the scripts, make sure you've created the `settings.sh` file and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
 
 ## Obtain Buoyant Enterprise for Linkerd (BEL) Trial Credentials and Log In to Buoyant Cloud, if Needed
 
-If you require credentials for accessing **Buoyant Enterprise for Linkerd**, [sign up here](https://enterprise.buoyant.io/start_trial), and follow the instructions.
+If you require credentials for accessing **Buoyant Enterprise for Linkerd**, [sign up here](https://enterprise.buoyant.io), and follow the instructions.
 
 You should end up with a set of credentials in environment variables like this:
 
@@ -125,14 +135,13 @@ export API_CLIENT_SECRET=[CLIENT_SECRET]
 export BUOYANT_LICENSE=[LICENSE]
 ```
 
-Add these to a file in the root of the `linkerd-demos/demo-orders` directory, named `settings.sh`, plus add two new lines with the cluster names, `export CLUSTER_NAME=demo-cluster-orders-hazl` and`export CLUSTER_NAME=demo-cluster-orders-topo`, like this:
+Add these to a file in the root of the `linkerd-demos/demo-orders` directory, named `settings.sh`, plus add a new line with the cluster name, `export CLUSTER_NAME=hazl-orders-playground`, like this:
 
 ```bash
 export API_CLIENT_ID=[CLIENT_ID]
 export API_CLIENT_SECRET=[CLIENT_SECRET]
 export BUOYANT_LICENSE=[LICENSE]
-export CLUSTER1_NAME=demo-cluster-orders-hazl
-export CLUSTER2_NAME=demo-cluster-orders-topo
+export CLUSTER_NAME=hazl-orders-playground
 ```
 
 Check the contents of the `settings.sh` file:
@@ -149,7 +158,7 @@ source settings.sh
 
 Now that you have a trial login, open an additional browser window or tab, and open **[Buoyant Cloud](https://buoyant.cloud)**. _Log in with the credentials you used for your trial account_.
 
-## Playground: Cluster Configurations
+## Playground: `k3d` Cluster Configurations
 
 This repository contains three `k3d` cluster configuration files and a soft link:
 
