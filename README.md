@@ -8,7 +8,9 @@
 
 ## Introduction
 
-This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed on [http://localhost:9999](http://localhost:9999).
+This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed which is accessible on [http://localhost:9999](http://localhost:9999), or outside the system at `http://<<hostname or IP>>:9999`.
+
+The Grafana instance deploys with the set of OSS Linkerd Grafana dashboards, plus there's a `dashboards` directory with JSON dashboard files that can be imported to Grafana, including a HAZL dashboard.
 
 ## High Availability Zonal Load Balancing (HAZL)
 
@@ -42,7 +44,7 @@ For more information, click [here](more-hazl.md).
 - [Buoyant Enterprise for Linkerd License](https://enterprise.buoyant.io)
 - [The Playground Assets, from GitHub](https://github.com/BuoyantIO/hazl-orders-playground)
 
-All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from [here](https://enterprise.buoyant.io). Instructions on obtaining the demo assets from GitHub are below.
+All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from [here](https://enterprise.buoyant.io).
 
 ## Playground: Included Assets
 
@@ -104,10 +106,10 @@ The top-level contents of the repository looks something like this:
 
 The repository contains the following automation in the `scripts` directory:
 
-- `cluster-setup-k3d-bcloud.sh`
-  - Script to stand up the cluster, deploy BEL, Grafana and the Orders app, with BCloud and debug metrics
 - `cluster-setup-k3d.sh`
   - Script to stand up the cluster, deploy BEL, Grafana and the Orders app, no BCloud
+- `cluster-setup-k3d-bcloud.sh`
+  - Script to stand up the cluster, deploy BEL, Grafana and the Orders app, with BCloud and debug metrics
 - `cluster-setup-k3d-basic.sh`
   - Script to stand up the cluster, install Linkerd, no BCloud
 - `cluster-setup-k3d-calico.sh`
