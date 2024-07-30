@@ -2,7 +2,7 @@
 # cluster-setup-k3d-naked.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
-# Automates cluster creation, no Linkerd installation
+# Automates cluster creation, certificate creation but no Linkerd installation
 # Tom Dean | Buoyant
 # Last edit: 7/29/2024
 
@@ -41,15 +41,5 @@ step certificate create identity.linkerd.cluster.local issuer.crt issuer.key \
 --ca ca.crt --ca-key ca.key
 ls -la
 cd ..
-
-# Read in license, Buoyant Cloud and cluster name information from the settings.sh file
-
-source settings.sh
-
-# Install the CLI
-
-curl https://enterprise.buoyant.io/$CLI_VERSION | sh
-export PATH=~/.linkerd2/bin:$PATH
-linkerd version
 
 exit 0

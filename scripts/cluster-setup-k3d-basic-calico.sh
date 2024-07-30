@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster-k3d/hazl-orders-playground-k3d-calico.yaml --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
+k3d cluster create -c cluster-k3d/hazl-orders-playground-k3d-calico.yaml --volume "$(pwd)/manifests/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
@@ -169,7 +169,7 @@ linkerd check --proxy -n linkerd-buoyant --context hazl
 # Patch with the buoyant-cloud-metrics.yaml manifest
 # Restart the buoyant-cloud-metrics daemonset
 
-kubectl apply -f buoyant-cloud-metrics.yaml --context hazl
+kubectl apply -f manifests/buoyant-cloud-metrics.yaml --context hazl
 
 kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context hazl
 

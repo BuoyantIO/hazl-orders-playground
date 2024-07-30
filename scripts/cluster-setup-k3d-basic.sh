@@ -169,7 +169,7 @@ linkerd check --proxy -n linkerd-buoyant --context hazl
 # Patch with the buoyant-cloud-metrics.yaml manifest
 # Restart the buoyant-cloud-metrics daemonset
 
-kubectl apply -f buoyant-cloud-metrics.yaml --context hazl
+kubectl apply -f manifests/buoyant-cloud-metrics.yaml --context hazl
 
 kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context hazl
 

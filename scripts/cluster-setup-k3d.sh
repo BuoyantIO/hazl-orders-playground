@@ -168,11 +168,11 @@ linkerd check --proxy -n linkerd-buoyant --context hazl
 
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana -n grafana --create-namespace grafana/grafana \
-  -f grafana-values.yaml --debug
+  -f manifests/grafana-values.yaml --debug
 
 # Install Linkerd Viz to Enable Success Rate Metrics
 
-linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=stable-2.14.10 --context hazl | kubectl apply -f - --context hazl
+linkerd viz install --set grafana.url=grafana.grafana:3000 --context hazl | kubectl apply -f - --context hazl
 
 # Create the Data Plane for the linkerd-viz namespace
 
@@ -192,7 +192,7 @@ kubectl apply -f linkerd-data-plane-viz-config.yaml --context=hazl
 
 # Grant viz Prometheus access to Grafana, need to add an AuthorizationPolicy pointing to its ServiceAccount
 
-kubectl apply -f authzpolicy-grafana.yaml
+kubectl apply -f manifests/authzpolicy-grafana.yaml
 
 # Port forward the Grafana dashboard to localhost:3000
 #
@@ -200,14 +200,14 @@ kubectl apply -f authzpolicy-grafana.yaml
 
 # Create the grafana-ingress Ingress
 #
-#kubectl apply -f grafana-ingress.yaml --context hazl
+#kubectl apply -f manifests/grafana-ingress.yaml --context hazl
 
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
 # Patch with the buoyant-cloud-metrics.yaml manifest
 # Restart the buoyant-cloud-metrics daemonset
 
-kubectl apply -f buoyant-cloud-metrics.yaml --context hazl
+kubectl apply -f manifests/buoyant-cloud-metrics.yaml --context hazl
 
 kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context hazl
 
@@ -218,8 +218,8 @@ kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context ha
 #--namespace kubecost --create-namespace \
 #--set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
 
-#kubectl apply -f ext-services.yaml
-#kubectl apply -f hazl-orders-playground-ingress.yaml
+#kubectl apply -f manifests/ext-services.yaml
+#kubectl apply -f manifests/hazl-orders-playground-ingress.yaml
 
 # Deploy the Orders application to both clusters
 # Press CTRL-C to exit each watch command
