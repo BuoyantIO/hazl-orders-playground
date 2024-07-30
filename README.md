@@ -4,11 +4,11 @@
 
 ### Tom Dean | Buoyant
 
-### Last edit: 7/29/2024
+### Last edit: 7/30/2024
 
 ## Introduction
 
-This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.
+This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed on [http://localhost:9999](http://localhost:9999).
 
 ## High Availability Zonal Load Balancing (HAZL)
 
@@ -42,7 +42,7 @@ For more information, click [here](more-hazl.md).
 - [Buoyant Enterprise for Linkerd License](https://enterprise.buoyant.io)
 - [The Playground Assets, from GitHub](https://github.com/BuoyantIO/hazl-orders-playground)
 
-All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from the link above. Instructions on obtaining the demo assets from GitHub are below.
+All prerequisites must be _installed_ and _working properly_ before proceeding. The instructions in the provided links will get you there. A trial license for Buoyant Enterprise for Linkerd can be obtained from [here](https://enterprise.buoyant.io). Instructions on obtaining the demo assets from GitHub are below.
 
 ## Playground: Included Assets
 
@@ -102,26 +102,30 @@ The top-level contents of the repository looks something like this:
 
 ## Playground: Automation
 
-The repository contains the following automation:
+The repository contains the following automation in the `scripts` directory:
 
+- `cluster-setup-k3d-bcloud.sh`
+  - Script to stand up the cluster, deploy BEL, Grafana and the Orders app, with BCloud and debug metrics
 - `cluster-setup-k3d.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster, deploy BEL, Grafana and the Orders app, no BCloud
 - `cluster-setup-k3d-basic.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster, install Linkerd, no BCloud
 - `cluster-setup-k3d-calico.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster with Calico, install Linkerd and Orders, no BCloud
 - `cluster-setup-k3d-naked.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster, no Linkerd or Orders app
 - `cluster-setup-k3d-basic-calico.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster with Calico, install Linkerd, no BCloud
 - `cluster-setup-k3d-naked-calico.sh`
-  - Script to stand up the cluster, install Linkerd and Orders
+  - Script to stand up the cluster with Calico, no Linkerd or Orders app
 - `cluster-destroy-k3d.sh`
-  - Script to destroy the cluster environment
+  - Script to destroy the cluster environment, all variants
 - `traffic-check.sh`
   - Script to monitor application traffic.
 
-If you choose to use the scripts, make sure you've created the `settings.sh` file and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
+Run the scripts from the root of the repository directory, like this: `./scripts/cluster-setup-k3d.sh`.
+
+If you choose to use the scripts, make sure you've created the `settings.sh` file in the root of the repository directory and run `source settings.sh` to set your environment variables.  See the next section for more detail on the `settings.sh` file.
 
 ## Obtain Buoyant Enterprise for Linkerd (BEL) Trial Credentials and Log In to Buoyant Cloud, if Needed
 
@@ -130,16 +134,16 @@ If you require credentials for accessing **Buoyant Enterprise for Linkerd**, [si
 You should end up with a set of credentials in environment variables like this:
 
 ```bash
-export API_CLIENT_ID=[CLIENT_ID]
-export API_CLIENT_SECRET=[CLIENT_SECRET]
+export API_CLIENT_ID=[CLIENT_ID]         <--- Only if using Buoyant Cloud
+export API_CLIENT_SECRET=[CLIENT_SECRET] <--- Only if using Buoyant Cloud
 export BUOYANT_LICENSE=[LICENSE]
 ```
 
 Add these to a file in the root of the `linkerd-demos/demo-orders` directory, named `settings.sh`, plus add a new line with the cluster name, `export CLUSTER_NAME=hazl-orders-playground`, like this:
 
 ```bash
-export API_CLIENT_ID=[CLIENT_ID]
-export API_CLIENT_SECRET=[CLIENT_SECRET]
+export API_CLIENT_ID=[CLIENT_ID]         <--- Only if using Buoyant Cloud
+export API_CLIENT_SECRET=[CLIENT_SECRET] <--- Only if using Buoyant Cloud
 export BUOYANT_LICENSE=[LICENSE]
 export CLUSTER_NAME=hazl-orders-playground
 ```
@@ -156,7 +160,7 @@ Once you're satisfied with the contents, `source` the file, to load the variable
 source settings.sh
 ```
 
-Now that you have a trial login, open an additional browser window or tab, and open **[Buoyant Cloud](https://buoyant.cloud)**. _Log in with the credentials you used for your trial account_.
+Now that you have a trial login, if you're using Buoyant Cloud, open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**. _Log in with the credentials you used for your trial account_.
 
 ## Playground: `k3d` Cluster Configurations
 
@@ -164,7 +168,7 @@ This repository contains three `k3d` cluster configuration files and a soft link
 
 ```bash
 .
-├── cluster
+├── cluster-k3d
 │   ├── demo-cluster-orders-hazl-large.yaml
 │   ├── demo-cluster-orders-hazl-medium.yaml
 │   ├── demo-cluster-orders-hazl-small.yaml
@@ -178,7 +182,7 @@ This repository contains three `k3d` cluster configuration files and a soft link
 
 ```bash
 .
-├── cluster
+├── cluster-kind
 │   ├── demo-cluster-orders-hazl-large.yaml
 │   ├── demo-cluster-orders-hazl-medium.yaml
 │   ├── demo-cluster-orders-hazl-small.yaml

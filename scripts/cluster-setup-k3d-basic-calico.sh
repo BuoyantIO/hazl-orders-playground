@@ -4,7 +4,7 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation and Linkerd installation
 # Tom Dean | Buoyant
-# Last edit: 7/29/2024
+# Last edit: 7/30/2024
 
 # Let's set some variables!
 
@@ -56,8 +56,7 @@ linkerd version
 
 linkerd check --pre --context=hazl
 
-# Install Buoyant Enterprise Linkerd Operator and Buoyant Cloud Agents using Helm
-# Debug metrics are enabled to use the Buoyant Cloud Grafana instance
+# Install Buoyant Enterprise Linkerd Operator using Helm
 
 helm repo add linkerd-buoyant https://helm.buoyant.cloud
 helm repo update
@@ -66,17 +65,11 @@ helm install linkerd-buoyant \
   --create-namespace \
   --namespace linkerd-buoyant \
   --kube-context hazl \
-  --set metadata.agentName=$CLUSTER_NAME \
-  --set api.clientID=$API_CLIENT_ID \
-  --set api.clientSecret=$API_CLIENT_SECRET \
-  --set metrics.debugMetrics=true \
-  --set agent.logLevel=debug \
-  --set metrics.logLevel=debug \
+  --set buoyantCloudEnabled=false \
 linkerd-buoyant/linkerd-buoyant
 
-# Monitor the Buoyant Cloud metrics rollout
+# Check our installation
 
-kubectl rollout status daemonset/buoyant-cloud-metrics -n linkerd-buoyant --context=hazl
 linkerd buoyant check --context hazl
 
 # Create linkerd-identity-issuer secret using root certificates

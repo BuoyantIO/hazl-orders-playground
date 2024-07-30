@@ -1,5 +1,5 @@
 #!/bin/bash
-# cluster-setup-k3d-calico.sh
+# cluster-setup-k3d.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, Linkerd installation and installs the Orders application
@@ -19,7 +19,7 @@ CLI_VERSION=install
 # Create the k3d clusters
 
 k3d cluster delete hazl-orders-playground
-k3d cluster create -c cluster-k3d/hazl-orders-playground-k3d-calico.yaml --volume "$(pwd)/manifests/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" --verbose --wait
+k3d cluster create -c cluster-k3d/hazl-orders-playground-k3d.yaml --wait
 k3d image import hatoo/oha:latest -c hazl-orders-playground
 k3d cluster list
 
@@ -56,7 +56,8 @@ linkerd version
 
 linkerd check --pre --context=hazl
 
-# Install Buoyant Enterprise Linkerd Operator using Helm
+# Install Buoyant Enterprise Linkerd Operator and Buoyant Cloud Agents using Helm
+# Debug metrics are enabled to use the Buoyant Cloud Grafana instance
 
 helm repo add linkerd-buoyant https://helm.buoyant.cloud
 helm repo update
@@ -65,11 +66,17 @@ helm install linkerd-buoyant \
   --create-namespace \
   --namespace linkerd-buoyant \
   --kube-context hazl \
-  --set buoyantCloudEnabled=false \
+  --set metadata.agentName=$CLUSTER_NAME \
+  --set api.clientID=$API_CLIENT_ID \
+  --set api.clientSecret=$API_CLIENT_SECRET \
+  --set metrics.debugMetrics=true \
+  --set agent.logLevel=debug \
+  --set metrics.logLevel=debug \
 linkerd-buoyant/linkerd-buoyant
 
-# Check our installation
+# Monitor the Buoyant Cloud metrics rollout
 
+kubectl rollout status daemonset/buoyant-cloud-metrics -n linkerd-buoyant --context=hazl
 linkerd buoyant check --context hazl
 
 # Create linkerd-identity-issuer secret using root certificates
@@ -193,7 +200,7 @@ kubectl apply -f manifests/authzpolicy-grafana.yaml
 
 # Create the grafana-ingress Ingress
 #
-#kubectl apply -f grafana-ingress.yaml --context hazl
+#kubectl apply -f manifests/grafana-ingress.yaml --context hazl
 
 # Enable Inbound Latency Metrics
 # These are disabled by default in the Buoyant Cloud Agent
