@@ -50,38 +50,54 @@ The top-level contents of the repository looks something like this:
 
 ```bash
 .
-├── README.md                            <-- This README
-├── buoyant-cloud-metrics.yaml           <-- Manifest to enable latency metrics in Buoyant Cloud (enabled with the script)
-├── certs                                <-- Directory for the TLS root certificates (empty)
-├── cluster                              <-- The k3d cluster configuration files live here
-├── cluster_destroy.sh                   <-- Script to destroy the cluster environment
-├── cluster_setup.sh                     <-- Script to stand up the clusters, install Linkerd and Orders on both clusters
-├── cluster-the-hard-way.md              <-- Instructions on how to manually stand up the clusters - _(needs some updates)_
-├── more-hazl.md                         <-- More information on HAZL
-├── images                               <-- Images for the README
+├── README.md
+├── certs                                    <-- Directory for the TLS root certificates (empty)
+├── cluster-k3d                              <-- The k3d cluster configuration files live here
+├── cluster-kind                             <-- The kind cluster configuration files live here **UNDER DEVELOPMENT**
+├── cluster-the-hard-way.md                  <-- Instructions on how to manually stand up the clusters - _(needs some updates)_
+├── dashboards                               <-- Grafana dashboard JSON files
+├── images                                   <-- Images for the markdown docs
+├── manifests
+│   ├── authzpolicy-grafana.yaml
+│   ├── buoyant-cloud-metrics.yaml
+│   ├── calico.yaml
+│   ├── ext-services.yaml
+│   ├── grafana-dashboard-configmap.yaml
+│   ├── grafana-values.yaml
+│   ├── hazl-orders-playground-ingress.yaml
+│   ├── slow_cooker.yaml                     <-- Manifest for slow_cooker, to generate some additional traffic, if desired
+│   └── sp-orders.yaml                       <-- Manifest for the Orders ServiceProfile
+├── more-hazl.md                             <-- More information on HAZL
 ├── orders -> orders-oha-bb/orders-hpa
-├── orders-colorwheel                    <-- The Orders application, uses Colorwheel
-│   ├── orders-hpa                       <-- The Orders application, with Horizontal Pod Autoscaling
-│   ├── orders-nohpa                     <-- The Orders application, without Horizontal Pod Autoscaling
-│   ├── warehouse-config-120ms.yaml      <-- Manifest to configure 120ms of latency in Chicago warehouse
-│   ├── warehouse-config-80ms.yaml       <-- Manifest to configure 120ms of latency in Chicago warehouse
-│   └── warehouse-config.yaml            <-- Manifest to reset warehouse configuration
-├── orders-oha-bb                        <-- The Orders application, uses oha/bb
-│   ├── orders-hpa                       <-- The Orders application, with Horizontal Pod Autoscaling
-│   └── orders-nohpa                     <-- The Orders application, with Horizontal Pod Autoscaling
-├── slow_cooker.yaml                     <-- Manifest for slow_cooker, to generate some additional traffic, if desired
+├── orders-colorwheel                        <-- The Orders application, uses Colorwheel
+│   ├── orders-hpa                           <-- The Orders application, with Horizontal Pod Autoscaling
+│   ├── orders-nohpa                         <-- The Orders application, without Horizontal Pod Autoscaling
+│   ├── warehouse-config-120ms.yaml          <-- Manifest to configure 120ms of latency in Chicago warehouse
+│   ├── warehouse-config-80ms.yaml           <-- Manifest to configure 80ms of latency in Chicago warehouse
+│   └── warehouse-config.yaml                <-- Manifest to reset warehouse configuration
+├── orders-oha-bb                            <-- The Orders application, uses oha/bb
+│   ├── orders-hpa                           <-- The Orders application, with Horizontal Pod Autoscaling
+│   └── orders-nohpa                         <-- The Orders application, without Horizontal Pod Autoscaling
+├── scripts                                  <-- For more details, see the Automation section in the README
+│   ├── cluster-destroy-k3d.sh
+│   ├── cluster-setup-k3d-basic-calico.sh
+│   ├── cluster-setup-k3d-basic.sh
+│   ├── cluster-setup-k3d-calico.sh
+│   ├── cluster-setup-k3d-naked-calico.sh
+│   ├── cluster-setup-k3d-naked.sh
+│   ├── cluster-setup-k3d.sh
+│   └── traffic_check.sh                     <-- Script to monitor application traffic
 └── testing-oha-bb
-    ├── failure-chicago                  <-- Manifests to induce failure in the Chicago warehouse
+    ├── failure-chicago                      <-- Manifests to induce failure in the Chicago warehouse
     │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
     │   ├── warehouse-chicago-hazl-bb-25-fail.yaml
     │   ├── warehouse-chicago-hazl-bb-50-fail.yaml
     │   └── warehouse-chicago-hazl-bb-75-fail.yaml
-    ├── latency-oakland                  <-- Manifests to induce latency in the Oakland warehouse
-    │   ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
-    │   ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
-    │   └── warehouse-oakland-hazl-bb-800ms-latency.yaml
-    ├── sp-orders.yaml                   <-- Manifest for the Orders ServiceProfile, to enable/disable retries
-    └── traffic_check.sh                 <-- Script to monitor application traffic
+    └── latency-oakland                      <-- Manifests to induce latency in the Oakland warehouse
+        ├── warehouse-oakland-hazl-bb-1000ms-latency.yaml
+        ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
+        ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
+        └── warehouse-oakland-hazl-bb-800ms-latency.yaml
 ```
 
 ## Playground: Automation
