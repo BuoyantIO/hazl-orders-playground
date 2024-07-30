@@ -278,7 +278,7 @@ More information on the [Colorwheel](https://github.com/BuoyantIO/colorwheel) ap
 
 ## IMPORTANT! Building the `oha` Load Generator Container Image
 
-_You will need build the container image for the `oha` load generator for the `orders-*` deployments._  The `cluster_setup.sh` script will import the `hatoo/oha:latest` container image from Docker for you, but it has to be in the Docker container registry first.
+_You will need build the container image for the `oha` load generator for the `orders-*` deployments._  The `cluster-setup-*.sh` scripts will import the `hatoo/oha:latest` container image from Docker for you, *but it has to be in the Docker container registry first*.
 
 [oha](https://github.com/hatoo/oha)
 
