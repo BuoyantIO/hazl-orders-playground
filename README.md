@@ -171,6 +171,20 @@ This repository contains three `k3d` cluster configuration files and a soft link
 │   └── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
 ```
 
+
+## Playground: `kind` Cluster Configurations
+
+This repository contains three `k3d` cluster configuration files and a soft link:
+
+```bash
+.
+├── cluster
+│   ├── demo-cluster-orders-hazl-large.yaml
+│   ├── demo-cluster-orders-hazl-medium.yaml
+│   ├── demo-cluster-orders-hazl-small.yaml
+│   └── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
+```
+
 By default, `demo-cluster-orders-hazl-small.yaml` is linked to `demo-cluster-orders-hazl.yaml`, so you can just use `demo-cluster-orders-hazl.yaml` if you want a small cluster.
 
 ## Buoyant Cloud: Grafana Dashboard
