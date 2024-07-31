@@ -163,7 +163,7 @@ Once you're satisfied with the contents, `source` the file, to load the variable
 source settings.sh
 ```
 
-If you're using Buoyant Cloud (you will need access to this, not included in the Community account), open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**.
+**OPTIONAL:** If you're using Buoyant Cloud (you will need access to this, not included in the Community account), open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**.
 
 ## Playground: `k3d` Cluster Configurations
 
