@@ -319,7 +319,7 @@ If you're going to use the container image in `k3d` and not use the `cluster_set
 
 First, we'll deploy our Kubernetes cluster using `k3d` with Buoyant Enterprise for Linkerd (BEL).
 
-### Task 1: Clone the `hazl-tar-orders-playground` Assets
+### Task 1: Clone the `hazl-orders-playground` Assets
 
 [GitHub: HAZL | Orders Playground](https://github.com/BuoyantIO/hazl-orders-playground)
 
@@ -331,7 +331,7 @@ Clone the `BuoyantIO/hazl-orders-playground` GitHub repository to your preferred
 git clone https://github.com/BuoyantIO/hazl-orders-playground.git
 ```
 
-Change directory to the `hazl-tar-orders-playground` directory:
+Change directory to the `hazl-orders-playground` directory:
 
 ```bash
 cd hazl-orders-playground
