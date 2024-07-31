@@ -135,9 +135,9 @@ If you require credentials for accessing **Buoyant Enterprise for Linkerd**, [si
 You should end up with a set of credentials in environment variables like this:
 
 ```bash
-export API_CLIENT_ID=[CLIENT_ID]         <--- Only if using Buoyant Cloud
-export API_CLIENT_SECRET=[CLIENT_SECRET] <--- Only if using Buoyant Cloud
-export BUOYANT_LICENSE=[LICENSE]         <--- You will definitely need this
+export API_CLIENT_ID=[CLIENT_ID]           <--- Only if using Buoyant Cloud
+export API_CLIENT_SECRET=[CLIENT_SECRET]   <--- Only if using Buoyant Cloud
+export BUOYANT_LICENSE=[LICENSE]           <--- You will definitely need this
 ```
 
 Add these to a file in the root of the `linkerd-demos/demo-orders` directory, named `settings.sh`, plus add a new line with the cluster name, `export CLUSTER_NAME=hazl-orders-playground`, like this:
