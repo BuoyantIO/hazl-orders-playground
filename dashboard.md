@@ -1,16 +1,14 @@
-# Details on the HAZL | TAR Playground Grafana Dashboard
-
-`./dashboard.md`
+# Details on the HAZL Dashboard
 
 **Tom Dean | Buoyant**
 
-**Last edit: 5/17/2024**
+**Last edit: 7/30/2024**
 
 ## Introduction
 
 ![The Grafana Dashboard](images/grafana-dashboard-setup-desired.png)
 
-A key component of the playground is the Grafana dashboard.  This provides a number of key metrics, including same and cross-AZ traffic, latency, success rate and requests for both the orders and warehouse deployments.  The dashboard template can be found [here](https://buoyant.cloud/grafana/dashboards/f/bdj1r8pxqr1tsb/).  **_PLEASE CLONE THE DASHBOARD TEMPLATE TO YOUR FOLDER! DO NOT EDIT THE DASHBOARD TEMPLATE!_**  Information on how to clone the dashboard can be found [here](./README.md#buoyant-cloud-grafana-dashboard)
+A key component of the playground is the Grafana dashboard.  This provides a number of key metrics, including same and cross-AZ traffic, latency, success rate and requests for both the orders and warehouse deployments.
 
 This dashboard contains panels for the following metrics:
 
@@ -33,7 +31,7 @@ This dashboard contains panels for the following metrics:
     - By warehouse
 - Other statistics
 
-The full [JSON model](./dashboard-json-model.json) for the dashboard.  _Feel free to use it to build your own dashboards!_
+The full [JSON model](dashboards/hazl-dashboard-gui.json) for the dashboard.
 
 ## Panels: Traffic
 

@@ -166,32 +166,34 @@ If you're using Buoyant Cloud (you will need access to this, not included in the
 
 ## Playground: `k3d` Cluster Configurations
 
-This repository contains three `k3d` cluster configuration files and a soft link:
+This repository contains six `k3d` cluster configuration files (three with Calico and three without) and two soft links:
 
 ```bash
-.
-├── cluster-k3d
-│   ├── demo-cluster-orders-hazl-large.yaml
-│   ├── demo-cluster-orders-hazl-medium.yaml
-│   ├── demo-cluster-orders-hazl-small.yaml
-│   └── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
+cluster-k3d
+├── hazl-orders-playground-k3d-calico.yaml -> hazl-orders-playground-k3d-small-calico.yaml
+├── hazl-orders-playground-k3d-large-calico.yaml
+├── hazl-orders-playground-k3d-large.yaml
+├── hazl-orders-playground-k3d-medium-calico.yaml
+├── hazl-orders-playground-k3d-medium.yaml
+├── hazl-orders-playground-k3d-small-calico.yaml
+├── hazl-orders-playground-k3d-small.yaml
+└── hazl-orders-playground-k3d.yaml -> hazl-orders-playground-k3d-small.yaml
 ```
 
+By default, the soft links point to the small-size clusters, but you can delete and re-create the links to point to the larger configurations if you wish.
 
 ## Playground: `kind` Cluster Configurations
 
-This repository contains three `k3d` cluster configuration files and a soft link:
+This repository contains three `kind` cluster configuration files:
 
 ```bash
-.
-├── cluster-kind
-│   ├── demo-cluster-orders-hazl-large.yaml
-│   ├── demo-cluster-orders-hazl-medium.yaml
-│   ├── demo-cluster-orders-hazl-small.yaml
-│   └── demo-cluster-orders-hazl.yaml -> demo-cluster-orders-hazl-small.yaml
+cluster-kind
+├── hazl-orders-playground-kind-large.yaml
+├── hazl-orders-playground-kind-medium.yaml
+└── hazl-orders-playground-kind-small.yaml
 ```
 
-By default, `demo-cluster-orders-hazl-small.yaml` is linked to `demo-cluster-orders-hazl.yaml`, so you can just use `demo-cluster-orders-hazl.yaml` if you want a small cluster.
+The `kind` cluster configurations are under development and not in use at this point.
 
 ## Buoyant Cloud: Grafana Dashboard
 
@@ -201,13 +203,7 @@ A key component of the playground is the Grafana dashboard.  This provides a num
 
 **A deeper dive into the Grafana Dashboard can be found [here](./dashboard.md).**
 
-The full [JSON model](./dashboard-json-model.json) for the dashboard.  Feel free to use it to build your own dashboards!
-
-I've created a template for the Grafana dashboard for anyone to use, but remember...
-
-**_PLEASE CLONE THE DASHBOARD TO YOUR FOLDER! DO NOT EDIT THE DASHBOARD TEMPLATE!_**
-
-Let's keep that template pure so everyone can enjoy the playground.
+The full [JSON model](dashboards/hazl-dashboard-gui.json) for the dashboard.  You can copy the contents of this file and import the dashboard into Grafana.
 
 ### How to Clone the Grafana Dashboard
 
