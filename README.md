@@ -87,6 +87,7 @@ The top-level contents of the repository looks something like this:
 │   ├── cluster-setup-k3d-calico.sh
 │   ├── cluster-setup-k3d-naked-calico.sh
 │   ├── cluster-setup-k3d-naked.sh
+│   ├── cluster-setup-k3d-bcloud.sh
 │   ├── cluster-setup-k3d.sh
 │   └── traffic-check.sh
 └── testing-oha-bb
