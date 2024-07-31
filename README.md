@@ -8,9 +8,7 @@
 
 ## Introduction
 
-This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed which is accessible on [http://localhost:9999](http://localhost:9999), or outside the system at `http://<<hostname or IP>>:9999`.
-
-The Grafana instance deploys with a set of OSS Linkerd Grafana dashboards, plus there's a `dashboards` directory with JSON dashboard files that can be imported to Grafana.
+This repository has quick-start steps to deploy **Buoyant Enterprise for Linkerd** in a `k3d` cluster, and enable **High Availability Zonal Load Balancing (HAZL)** in that cluster.  The cluster also has `linkerd-viz` and a self-contained instance of Grafana deployed which is accessible on [http://localhost:9999](http://localhost:9999), or outside the system at `http://<<hostname or IP>>:9999`.  The Grafana instance deploys with a set of OSS Linkerd Grafana dashboards, plus there's a `dashboards` directory with JSON dashboard files that can be imported to Grafana.
 
 ## High Availability Zonal Load Balancing (HAZL)
 
@@ -163,7 +161,7 @@ Once you're satisfied with the contents, `source` the file, to load the variable
 source settings.sh
 ```
 
-**OPTIONAL:** If you're using Buoyant Cloud (you will need access to this, not included in the Community account), open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**.
+**OPTIONAL:** If you're using Buoyant Cloud (you will need access to this, not included in the Community account), open an additional browser window or tab, and log in to **[Buoyant Cloud](https://buoyant.cloud)**.  Make sure you use the `cluster-setup-k3d-bcloud.sh` script as it installs and configures the Buoyant Cloud agent.
 
 ## Playground: `k3d` Cluster Configurations
 
@@ -194,7 +192,7 @@ cluster-kind
 └── hazl-orders-playground-kind-small.yaml
 ```
 
-The `kind` cluster configurations are under development and not in use at this point.
+The `kind` cluster configurations are under development and not used at this point.
 
 ## Buoyant Cloud: Grafana Dashboard
 
@@ -206,37 +204,17 @@ A key component of the playground is the Grafana dashboard.  This provides a num
 
 The full [JSON model](dashboards/hazl-dashboard-gui.json) for the dashboard.  You can copy the contents of this file and import the dashboard into Grafana.
 
-### How to Clone the Grafana Dashboard
+### How to Import the Grafana Dashboard
 
-Log into Buoyant Cloud with your `@buoyant.io` login, then open [Grafana](https://buoyant.cloud/grafana).
+Log into [Grafana](https://localhost:9999).
 
 Go to the Dashboards, as shown below.
 
 ![Grafana Dashboards](images/grafana-dashboards-far.png)
 
-If you don't have a folder in the Dashboards section, please create one for yourself using the `New` button on the top right.
 
-Go to the `Templates` folder.
 
-![Grafana Dashboards: Templates](images/grafana-dashboard-templates.png)
-
-Click on the `HAZL | Orders Dashboard - TEMPLATE` dashboard to open it.  We will save a copy to your folder from here.  Click on the gear icon in the upper right-hand corner to open the Settings.
-
-![Grafana: Dashboard Settings](images/grafana-dashboard-settings.png)
-
-Once you are in the Settings, click on the `Save As` button in the upper right-hand corner, as shown below.
-
-![Grafana Dashboard: Save As](images/grafana-dashboard-save-as.png)
-
-This will drop you into the `Save As` dialog, as shown below. **_PLEASE SELECT YOUR FOLDER!_**  You can delete the ` - TEMPLATE Copy` if you want, or change the entire name.  Whatever your heart desires.
-
-![Grafana Dashboard: Save Copy](images/grafana-dashboard-save-copy.png)
-
-Once you have your dashboard copy, select the HAZL cluster from the drop-down, then select the Orders namespace.  See the example below.
-
-![Grafana Dashboard: End Result](images/grafana-dashboard-example1.png)
-
-That's it!  You have your dashboards.
+That's it!  You have your dashboard.
 
 ## The Orders Application
 
