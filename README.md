@@ -79,12 +79,12 @@ The top-level contents of the repository looks something like this:
 │   ├── orders-hpa                           <-- The Orders application, with Horizontal Pod Autoscaling
 │   ├── orders-nohpa                         <-- The Orders application, without Horizontal Pod Autoscaling
 │   └── testing-oha-bb
-│       ├── failure-chicago                      <-- Manifests to induce failure in the Chicago warehouse
+│       ├── failure-chicago                  <-- Manifests to induce failure in the Chicago warehouse
 │       │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
 │       │   ├── warehouse-chicago-hazl-bb-25-fail.yaml
 │       │   ├── warehouse-chicago-hazl-bb-50-fail.yaml
 │       │   └── warehouse-chicago-hazl-bb-75-fail.yaml
-│       └── latency-oakland                      <-- Manifests to induce latency in the Oakland warehouse
+│       └── latency-oakland                  <-- Manifests to induce latency in the Oakland warehouse
 │           ├── warehouse-oakland-hazl-bb-1000ms-latency.yaml
 │           ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
 │           ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
