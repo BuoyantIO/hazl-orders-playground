@@ -77,28 +77,28 @@ The top-level contents of the repository looks something like this:
 │   └── warehouse-config.yaml                <-- Manifest to reset warehouse configuration
 ├── orders-oha-bb                            <-- The Orders application, uses oha/bb
 │   ├── orders-hpa                           <-- The Orders application, with Horizontal Pod Autoscaling
-│   └── orders-nohpa                         <-- The Orders application, without Horizontal Pod Autoscaling
-├── scripts                                  <-- For more details, see the Automation section in the README
-│   ├── cluster-destroy-k3d.sh
-│   ├── cluster-setup-k3d-basic-calico.sh
-│   ├── cluster-setup-k3d-basic.sh
-│   ├── cluster-setup-k3d-calico.sh
-│   ├── cluster-setup-k3d-naked-calico.sh
-│   ├── cluster-setup-k3d-naked.sh
-│   ├── cluster-setup-k3d-bcloud.sh
-│   ├── cluster-setup-k3d.sh
-│   └── traffic-check.sh
-└── testing-oha-bb
-    ├── failure-chicago                      <-- Manifests to induce failure in the Chicago warehouse
-    │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
-    │   ├── warehouse-chicago-hazl-bb-25-fail.yaml
-    │   ├── warehouse-chicago-hazl-bb-50-fail.yaml
-    │   └── warehouse-chicago-hazl-bb-75-fail.yaml
-    └── latency-oakland                      <-- Manifests to induce latency in the Oakland warehouse
-        ├── warehouse-oakland-hazl-bb-1000ms-latency.yaml
-        ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
-        ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
-        └── warehouse-oakland-hazl-bb-800ms-latency.yaml
+│   ├── orders-nohpa                         <-- The Orders application, without Horizontal Pod Autoscaling
+│   └── testing-oha-bb
+│       ├── failure-chicago                      <-- Manifests to induce failure in the Chicago warehouse
+│       │   ├── warehouse-chicago-hazl-bb-100-fail.yaml
+│       │   ├── warehouse-chicago-hazl-bb-25-fail.yaml
+│       │   ├── warehouse-chicago-hazl-bb-50-fail.yaml
+│       │   └── warehouse-chicago-hazl-bb-75-fail.yaml
+│       └── latency-oakland                      <-- Manifests to induce latency in the Oakland warehouse
+│           ├── warehouse-oakland-hazl-bb-1000ms-latency.yaml
+│           ├── warehouse-oakland-hazl-bb-400ms-latency.yaml
+│           ├── warehouse-oakland-hazl-bb-600ms-latency.yaml
+│           └── warehouse-oakland-hazl-bb-800ms-latency.yaml
+└── scripts                                  <-- For more details, see the Automation section in the README
+    ├── cluster-destroy-k3d.sh
+    ├── cluster-setup-k3d-basic-calico.sh
+    ├── cluster-setup-k3d-basic.sh
+    ├── cluster-setup-k3d-calico.sh
+    ├── cluster-setup-k3d-naked-calico.sh
+    ├── cluster-setup-k3d-naked.sh
+    ├── cluster-setup-k3d-bcloud.sh
+    ├── cluster-setup-k3d.sh
+    └── traffic-check.sh
 ```
 
 ## Playground: Automation
