@@ -30,4 +30,4 @@ Finally, **Topology Hints** has a set of well-known constraints, including:
 
 These constraints have real-world implications. As one customer put it when trying **Istio** + **Topology Hints**: "What we are seeing in _some_ applications is that they won’t scale fast enough or at all (because maybe two or three pods out of 10 are getting the majority of the traffic and is not triggering the HPA) and _can cause a cyclic loop of pods crashing and the service going down_."
 
-Go back to the [main doc](README.md).
+Go back to the [main doc](./README.md).
