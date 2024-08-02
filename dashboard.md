@@ -6,16 +6,19 @@
 
 ## Introduction
 
-![The Grafana Dashboard](images/grafana-dashboard-setup-desired.png)
+![The Grafana Dashboard](images/dashboard-no-hazl-1.png)
 
 A key component of the playground is the Grafana dashboard.  This provides a number of key metrics, including same and cross-AZ traffic, latency, success rate and requests for both the orders and warehouse deployments.
 
-This dashboard contains panels for the following metrics:
+**This dashboard contains panels for the following metrics:**
 
 - Network Traffic
   - Traffic Summary
+  - Cross-AZ Traffic Yearly Cost
+  - Cross-AZ Traffic in GB/s
   - Same-AZ traffic
   - Cross-AZ traffic
+- HAZL Load Average
 - Latency
   - All orders
   - By zone
@@ -29,7 +32,11 @@ This dashboard contains panels for the following metrics:
   - Warehouse
     - All
     - By warehouse
-- Other statistics
+- Tables
+  - Same-AZ traffic
+  - Cross-AZ traffic
+  - Raw Outbound Reads and Writes
+  - Meshed Pods by Zone
 
 The full [JSON model](dashboards/hazl-dashboard-gui.json) for the dashboard.
 
