@@ -4,12 +4,12 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation and Linkerd installation
 # Tom Dean | Buoyant
-# Last edit: 7/30/2024
+# Last edit: 8/22/2024
 
 # Let's set some variables!
 
 # BEL: Stable
-BEL_VERSION=enterprise-2.15.5
+BEL_VERSION=enterprise-2.16.0
 CLI_VERSION=install
 
 # BEL: Preview

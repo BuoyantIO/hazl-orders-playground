@@ -4,16 +4,16 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, Linkerd installation and installs the Orders application
 # Tom Dean | Buoyant
-# Last edit: 7/30/2024
+# Last edit: 8/22/2024
 
 # Let's set some variables!
 
 # BEL: Stable
-BEL_VERSION=enterprise-2.15.5
+BEL_VERSION=enterprise-2.16.0
 CLI_VERSION=install
 
 # BEL: Preview
-#BEL_VERSION=preview-24.7.4
+#BEL_VERSION=preview-24.8.2
 #CLI_VERSION=install-preview
 
 # Create the k3d clusters
@@ -209,7 +209,7 @@ kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context ha
 #helm install kubecost cost-analyzer \
 #--repo https://kubecost.github.io/cost-analyzer/ \
 #--namespace kubecost --create-namespace \
-#--set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
+#--set kubecostToken=$KUBECOST_TOKEN
 
 #kubectl apply -f manifests/ext-services.yaml
 #kubectl apply -f manifests/hazl-orders-playground-ingress.yaml
