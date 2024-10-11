@@ -4,7 +4,7 @@
 
 ### Tom Dean | Buoyant
 
-### Last edit: 8/22/2024
+### Last edit: 10/3/2024
 
 ## Introduction
 
@@ -348,7 +348,7 @@ There are two manifests that, when applied, increase latency in the Chicago ware
 To apply:
 
 ```bash
-kubectl apply -f warehouse-chicago-hazl-bb-fail.yaml --context hazl ; kubectl apply -f warehouse-chicago-topo-bb-fail.yaml --context topo
+kubectl apply -f orders-oha-bb/testing-oha-bb/warehouse-chicago-hazl-bb-fail.yaml --context hazl
 ```
 
 ### Enabling/Disabling Retries
@@ -358,13 +358,13 @@ kubectl apply -f warehouse-chicago-hazl-bb-fail.yaml --context hazl ; kubectl ap
 Enable Retries:
 
 ```bash
-kubectl apply -f sp-orders.yaml --context hazl ; kubectl apply -f sp-orders.yaml --context topo
+kubectl apply -f manifests/sp-orders.yaml --context hazl
 ```
 
 Disable Retries:
 
 ```bash
-kubectl delete -f sp-orders.yaml --context hazl ; kubectl delete -f sp-orders.yaml --context topo
+kubectl delete -f manifests/sp-orders.yaml --context hazl
 ```
 
 
