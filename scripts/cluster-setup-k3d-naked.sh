@@ -4,17 +4,22 @@
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, certificate creation but no Linkerd installation
 # Tom Dean | Buoyant
-# Last edit: 8/22/2024
+# Last edit: 3/6/2025
 
 # Let's set some variables!
 
 # BEL: Stable
-BEL_VERSION=enterprise-2.16.0
+BEL_VERSION=enterprise-2.17.1
+#BEL_VERSION=enterprise-2.16.3
+#BEL_VERSION=enterprise-2.15.7
 CLI_VERSION=install
 
 # BEL: Preview
-#BEL_VERSION=preview-24.8.2
+#BEL_VERSION=preview-25.1.2
 #CLI_VERSION=install-preview
+
+# Viz Version
+VIZ_VERSION=edge-25.1.2
 
 # Create the k3d clusters
 

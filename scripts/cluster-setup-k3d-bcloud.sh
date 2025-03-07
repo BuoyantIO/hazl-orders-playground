@@ -1,20 +1,25 @@
 #!/bin/bash
-# cluster-setup-k3d.sh
+# cluster-setup-k3d-bcloud.sh
 # Demo script for the hazl-orders-playground GitHub repository
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Automates cluster creation, Linkerd installation and installs the Orders application
 # Tom Dean | Buoyant
-# Last edit: 8/22/2024
+# Last edit: 3/6/2025
 
 # Let's set some variables!
 
 # BEL: Stable
-BEL_VERSION=enterprise-2.16.0
+BEL_VERSION=enterprise-2.17.1
+#BEL_VERSION=enterprise-2.16.3
+#BEL_VERSION=enterprise-2.15.7
 CLI_VERSION=install
 
 # BEL: Preview
-#BEL_VERSION=preview-24.8.2
+#BEL_VERSION=preview-25.1.2
 #CLI_VERSION=install-preview
+
+# Viz Version
+VIZ_VERSION=edge-25.1.2
 
 # Create the k3d clusters
 
@@ -172,7 +177,7 @@ helm install grafana -n grafana --create-namespace grafana/grafana \
 
 # Install Linkerd Viz to Enable Success Rate Metrics
 
-linkerd viz install --set grafana.url=grafana.grafana:3000 --context hazl | kubectl apply -f - --context hazl
+linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=$VIZ_VERSION --context hazl | kubectl apply -f - --context hazl
 
 # Create the Data Plane for the linkerd-viz namespace
 
@@ -216,7 +221,7 @@ kubectl -n linkerd-buoyant rollout restart ds buoyant-cloud-metrics --context ha
 #helm install kubecost cost-analyzer \
 #--repo https://kubecost.github.io/cost-analyzer/ \
 #--namespace kubecost --create-namespace \
-#--set kubecostToken=$KUBECOST_TOKEN
+#--set kubecostToken="dG9tQGJ1b3lhbnQuaW8=xm343yadf98"
 
 #kubectl apply -f manifests/ext-services.yaml
 #kubectl apply -f manifests/hazl-orders-playground-ingress.yaml
