@@ -14,7 +14,7 @@ metadata:
 servers: 3
 agents: 3
 network: hazl-orders-playground
-image: rancher/k3s:v1.32.2-rc3-k3s1-arm64
+image: rancher/k3s:v1.32.2-k3s1
 options:
   k3d:
     disableLoadbalancer: true
