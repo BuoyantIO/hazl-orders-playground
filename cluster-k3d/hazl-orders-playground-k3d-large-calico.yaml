@@ -3,7 +3,7 @@
 # Uses Calico as the CNI
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Tom Dean | Buoyant
-# Last edit: 6/13/2024
+# Last edit: 3/6/2025
 #
 # k3d configuration docs:
 # https://k3d.io/v5.6.3/usage/configfile/
@@ -19,7 +19,7 @@ ports:
   - port: 9999:80 # same as `--port '9999:80@loadbalancer'`
     nodeFilters:
       - loadbalancer
-image: rancher/k3s:v1.31.5-k3s1
+image: rancher/k3s:v1.32.2-rc3-k3s1-arm64
 #volumes:
 #  - volume: "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml"
 #    nodeFilters:

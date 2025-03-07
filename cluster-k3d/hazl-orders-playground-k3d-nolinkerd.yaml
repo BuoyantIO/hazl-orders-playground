@@ -1,6 +1,5 @@
-# hazl-orders-playground-k3d-small-calico.yaml
+# hazl-orders-playground-k3d-small.yaml
 # Cluster configuration using k3d for the hazl-orders-playground GitHub repository
-# Uses Calico as the CNI
 # https://github.com/BuoyantIO/hazl-orders-playground
 # Tom Dean | Buoyant
 # Last edit: 3/6/2025
@@ -12,29 +11,18 @@ apiVersion: k3d.io/v1alpha5
 kind: Simple
 metadata:
   name: hazl-orders-playground
-servers: 1
+servers: 3
 agents: 3
 network: hazl-orders-playground
-ports:
-  - port: 9999:80 # same as `--port '9999:80@loadbalancer'`
-    nodeFilters:
-      - loadbalancer
 image: rancher/k3s:v1.32.2-rc3-k3s1-arm64
-#volumes:
-#  - volume: "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml"
-#    nodeFilters:
-#      - server:0
-#      - agent:*
 options:
   k3d:
-    disableLoadbalancer: false
+    disableLoadbalancer: true
   k3s:
     extraArgs:
       - arg: --debug
         nodeFilters: [server:*]
-      - arg: --flannel-backend=none
-        nodeFilters: [server:*]
-      - arg: --disable-network-policy
+      - arg: --disable=traefik
         nodeFilters: [server:*]
     nodeLabels:
       - label: topology.kubernetes.io/zone=zone-central
