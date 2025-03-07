@@ -25,7 +25,9 @@ options:
   k3s:
     extraArgs:
       - arg: --debug
-        nodeFilters: [server:*]
+        nodeFilters:
+          - server:*
+          - agent:*
     nodeLabels:
       - label: topology.kubernetes.io/zone=zone-central
         nodeFilters: [agent:0]
@@ -34,7 +36,5 @@ options:
       - label: topology.kubernetes.io/zone=zone-east
         nodeFilters: [agent:2]
       - label: egressgateway=true
-        nodeFilters:
-          - agent:0
-          - agent:1
-          - agent:2
+        nodeFilters: [agent:*]
+
