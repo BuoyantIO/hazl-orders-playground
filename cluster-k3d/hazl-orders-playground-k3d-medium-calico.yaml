@@ -31,7 +31,9 @@ options:
   k3s:
     extraArgs:
       - arg: --debug
-        nodeFilters: [server:*]
+        nodeFilters:
+          - server:*
+          - agent:*
       - arg: --flannel-backend=none@server:*
         nodeFilters: [server:*]
       - arg: --disable-network-policy
@@ -49,3 +51,5 @@ options:
         nodeFilters: [agent:4]
       - label: topology.kubernetes.io/zone=zone-east
         nodeFilters: [agent:5]
+      - label: egressgateway=true
+        nodeFilters: [agent:*]

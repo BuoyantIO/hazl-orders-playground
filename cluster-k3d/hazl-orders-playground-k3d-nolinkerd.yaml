@@ -21,7 +21,9 @@ options:
   k3s:
     extraArgs:
       - arg: --debug
-        nodeFilters: [server:*]
+        nodeFilters:
+          - server:*
+          - agent:*
       - arg: --disable=traefik
         nodeFilters: [server:*]
     nodeLabels:
@@ -31,8 +33,5 @@ options:
         nodeFilters: [agent:1]
       - label: topology.kubernetes.io/zone=zone-east
         nodeFilters: [agent:2]
-      - label: egressgateway="true"
-        nodeFilters:
-          - agent:0
-          - agent:1
-          - agent:2
+      - label: egressgateway=true
+        nodeFilters: [agent:*]
