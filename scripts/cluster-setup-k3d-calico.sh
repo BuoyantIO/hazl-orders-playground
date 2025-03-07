@@ -53,7 +53,7 @@ source settings.sh
 
 # Install the CLI
 
-curl https://enterprise.buoyant.io/$CLI_VERSION | sh
+curl https://enterprise.buoyant.io/$CLI_VERSION | $LINKERD2_VERSION sh
 export PATH=~/.linkerd2/bin:$PATH
 linkerd version
 
@@ -177,7 +177,7 @@ helm install grafana -n grafana --create-namespace grafana/grafana \
 
 # Install Linkerd Viz to Enable Success Rate Metrics
 
-linkerd viz install --set grafana.url=grafana.grafana:3000 --context hazl | kubectl apply -f - --context hazl
+linkerd viz install --set grafana.url=grafana.grafana:3000 --set linkerdVersion=$VIZ_VERSION --context hazl | kubectl apply -f - --context hazl
 
 # Create the Data Plane for the linkerd-viz namespace
 

@@ -53,7 +53,7 @@ source settings.sh
 
 # Install the CLI
 
-curl https://enterprise.buoyant.io/$CLI_VERSION | sh
+curl https://enterprise.buoyant.io/$CLI_VERSION | $LINKERD2_VERSION sh
 export PATH=~/.linkerd2/bin:$PATH
 linkerd version
 
