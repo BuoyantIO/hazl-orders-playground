@@ -1,0 +1,12 @@
+apiVersion: egressgateway.spidernet.io/v1beta1
+kind: EgressGateway
+metadata:
+  name: default
+spec:
+  ippools:
+    ipv4:
+    - "172.23.0.100-172.23.0.110"
+  nodeSelector:
+    selector:
+      matchLabels:
+        egressgateway: "true"

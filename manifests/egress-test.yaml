@@ -1,0 +1,11 @@
+apiVersion: egressgateway.spidernet.io/v1beta1
+kind: EgressPolicy
+metadata:
+ name: test
+ namespace: default
+spec:
+ egressGatewayName: default
+ appliedTo:
+  podSelector:
+   matchLabels:
+    app: "visitor"
